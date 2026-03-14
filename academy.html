@@ -47,7 +47,7 @@
 
   /* ─── DROPDOWN ─── */
   .menu-overlay { position: fixed; top: 64px; right: 24px; width: 300px; background: rgba(14,14,14,0.82); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; z-index: 999; display: flex; flex-direction: column; padding: 12px; transform: translateY(-10px) scale(0.97); opacity: 0; pointer-events: none; transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s ease; box-shadow: 0 24px 60px rgba(0,0,0,0.6); }
-  .menu-overlay.open { transform: translateY(0) scale(1); opacity: 1; pointer-events: all; }
+  .menu-overlay.open { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto; }
   .menu-overlay a { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,0.75); text-decoration: none; padding: 10px 14px; border-radius: 8px; transition: background 0.15s, color 0.15s; }
   .menu-overlay a:hover { background: rgba(255,255,255,0.06); color: var(--yellow); }
   .menu-overlay a.active { color: var(--yellow); }
@@ -214,13 +214,13 @@
 <nav>
   <a class="nav-logo" href="index.html">CHUBY <span>DICE</span></a>
   <div class="nav-center">
-    <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">
+    <button class="menu-btn" id="menuBtn" onclick="toggleMenu(event)">
       MENU
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5L7 9.5L12 4.5" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
     </button>
   </div>
   <div class="nav-right">
-    <button class="menu-btn" id="menuBtnMobile" onclick="toggleMenu()" style="display:none;">
+    <button class="menu-btn" id="menuBtnMobile" onclick="toggleMenu(event)" style="display:none;">
       MENU
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5L7 9.5L12 4.5" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
     </button>
@@ -279,18 +279,19 @@
 </main>
 
 <script>
-  function toggleMenu() {
-    const overlay = document.getElementById('menuOverlay');
-    const btn = document.getElementById('menuBtn');
-    const btnM = document.getElementById('menuBtnMobile');
+  function toggleMenu(e) {
+    if (e) e.stopPropagation();
+    var overlay = document.getElementById('menuOverlay');
+    var btn = document.getElementById('menuBtn');
+    var btnM = document.getElementById('menuBtnMobile');
     overlay.classList.toggle('open');
     btn.classList.toggle('open');
-    btnM.classList.toggle('open');
+    if (btnM) btnM.classList.toggle('open');
   }
   document.addEventListener('click', function(e) {
-    const overlay = document.getElementById('menuOverlay');
-    const btn = document.getElementById('menuBtn');
-    const btnM = document.getElementById('menuBtnMobile');
+    var overlay = document.getElementById('menuOverlay');
+    var btn = document.getElementById('menuBtn');
+    var btnM = document.getElementById('menuBtnMobile');
     if (overlay && overlay.classList.contains('open') &&
         !overlay.contains(e.target) && !btn.contains(e.target) && (!btnM || !btnM.contains(e.target))) {
       overlay.classList.remove('open');
