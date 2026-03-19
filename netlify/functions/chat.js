@@ -27,27 +27,54 @@ Chuby Dice is Melbourne's premier Dancehall experience, bringing authentic Jamai
 - Keep responses concise and helpful
 - Do not make up specific prices, dates, or times you aren't sure about`;
 
-module.exports = async function (req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
+exports.handler = async function (event) {
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+      },
+      body: "",
+    };
   }
 
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
+  if (event.httpMethod !== "POST") {
+    return {
+      statusCode: 405,
+      headers: { "Access-Control-Allow-Origin": "*" },
+      body: JSON.stringify({ error: "Method not allowed" }),
+    };
   }
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({ error: "API key not configured" });
+    return {
+      statusCode: 500,
+      headers: { "Access-Control-Allow-Origin": "*" },
+      body: JSON.stringify({ error: "API key not configured" }),
+    };
   }
 
-  const { messages } = req.body || {};
+  let body;
+  try {
+    body = JSON.parse(event.body);
+  } catch {
+    return {
+      statusCode: 400,
+      headers: { "Access-Control-Allow-Origin": "*" },
+      body: JSON.stringify({ error: "Invalid JSON" }),
+    };
+  }
+
+  const { messages } = body;
   if (!messages || !Array.isArray(messages)) {
-    return res.status(400).json({ error: "Missing messages array" });
+    return {
+      statusCode: 400,
+      headers: { "Access-Control-Allow-Origin": "*" },
+      body: JSON.stringify({ error: "Missing messages array" }),
+    };
   }
 
   try {
@@ -69,12 +96,28 @@ module.exports = async function (req, res) {
     const data = await response.json();
 
     if (!response.ok) {
-      return res.status(response.status).json({ error: data.error?.message || "API error" });
+      return {
+        statusCode: response.status,
+        headers: { "Access-Control-Allow-Origin": "*" },
+        body: JSON.stringify({ error: data.error?.message || "API error" }),
+      };
     }
 
     const text = data.content?.find((b) => b.type === "text")?.text || "";
-    return res.status(200).json({ reply: text });
+
+    return {
+      statusCode: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({ reply: text }),
+    };
   } catch (err) {
-    return res.status(500).json({ error: "Failed to reach AI service" });
+    return {
+      statusCode: 500,
+      headers: { "Access-Control-Allow-Origin": "*" },
+      body: JSON.stringify({ error: "Failed to reach AI service" }),
+    };
   }
 };
