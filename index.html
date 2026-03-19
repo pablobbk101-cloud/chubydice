@@ -1567,5 +1567,46 @@
 
 
 <script src="/chatbot.js"></script>
+
+<script>
+(function () {
+  var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&!?';
+
+  function scrambleTitle(el) {
+    var spans = el.querySelectorAll('span');
+    spans.forEach(function (span) {
+      var original = span.dataset.value || span.textContent;
+      span.dataset.value = original;
+      var iteration = 0;
+      clearInterval(span._glitch);
+      span._glitch = setInterval(function () {
+        span.textContent = original
+          .split('')
+          .map(function (ch, i) {
+            if (ch === ' ') return ' ';
+            if (i < Math.floor(iteration)) return original[i];
+            return CHARS[Math.floor(Math.random() * CHARS.length)];
+          })
+          .join('');
+        iteration += 0.45;
+        if (iteration > original.length) {
+          clearInterval(span._glitch);
+          span.textContent = original;
+        }
+      }, 35);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var title = document.querySelector('.hero-title');
+    if (!title) return;
+    title.style.cursor = 'default';
+    title.addEventListener('mouseenter', function () {
+      scrambleTitle(title);
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
