@@ -1568,6 +1568,68 @@
 
 <script src="/chatbot.js"></script>
 
+<!-- 3D card tilt + sheen -->
+<script>
+(function () {
+  var MAX_TILT = 12; // degrees
+  var SHEEN_OPACITY = 0.18;
+
+  function initTilt(card) {
+    // inject sheen layer
+    var sheen = document.createElement('div');
+    sheen.style.cssText = [
+      'position:absolute', 'inset:0', 'border-radius:inherit',
+      'pointer-events:none', 'z-index:99',
+      'background:radial-gradient(circle at 50% 50%, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 100%)',
+      'transition:background 0.08s ease', 'will-change:background'
+    ].join(';');
+    card.appendChild(sheen);
+
+    card.style.willChange = 'transform';
+    card.style.transition = 'transform 0.08s ease, box-shadow 0.08s ease';
+
+    function onMove(e) {
+      var rect = card.getBoundingClientRect();
+      var cx = e.clientX - rect.left;
+      var cy = e.clientY - rect.top;
+      var px = cx / rect.width;   // 0..1
+      var py = cy / rect.height;  // 0..1
+      var rx = (py - 0.5) * -MAX_TILT * 2;  // tilt X axis
+      var ry = (px - 0.5) *  MAX_TILT * 2;  // tilt Y axis
+
+      card.style.transform =
+        'perspective(800px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) scale3d(1.03,1.03,1.03)';
+      card.style.boxShadow =
+        (ry * 1.5) + 'px ' + (-rx * 1.5) + 'px 40px rgba(0,0,0,0.5)';
+
+      // sheen follows cursor
+      sheen.style.background =
+        'radial-gradient(circle at ' + (px * 100) + '% ' + (py * 100) + '%, ' +
+        'rgba(255,255,255,' + SHEEN_OPACITY + ') 0%, rgba(255,255,255,0) 65%)';
+    }
+
+    function onLeave() {
+      card.style.transition = 'transform 0.4s ease, box-shadow 0.4s ease';
+      card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
+      card.style.boxShadow = '';
+      sheen.style.background = 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 100%)';
+    }
+
+    function onEnter() {
+      card.style.transition = 'transform 0.08s ease, box-shadow 0.08s ease';
+    }
+
+    card.addEventListener('mousemove', onMove);
+    card.addEventListener('mouseleave', onLeave);
+    card.addEventListener('mouseenter', onEnter);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.tile').forEach(initTilt);
+  });
+})();
+</script>
+
 <script>
 (function () {
   var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&!?';
