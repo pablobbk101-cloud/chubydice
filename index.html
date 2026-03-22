@@ -1683,7 +1683,7 @@
       stallTimer = setTimeout(function () {
         v.load();
         tryPlay(v);
-      }, 3000);
+      }, 2000);
     }
     function onPlaying() {
       clearTimeout(stallTimer);
@@ -1698,38 +1698,47 @@
     });
   }
 
-  // Intelligent sequential loading — load video 1, start playback; load video 2 while playing; load others on demand
-  var currentVidIdx = 0;
+  // Aggressive preload strategy: load all videos immediately
   var loadedVideos = new Set();
 
   function loadVideo(idx) {
     if (loadedVideos.has(idx) || idx >= videos.length) return;
     loadedVideos.add(idx);
-    videos[idx].preload = isMobile ? 'metadata' : 'auto';
+    videos[idx].preload = 'auto';
     setupVideoWithRecovery(videos[idx]);
     videos[idx].load();
   }
 
-  // Start with video 1
-  loadVideo(0);
+  // Mobile: start all videos loading immediately for smooth rotation
+  if (isMobile) {
+    // Load all 5 videos in background immediately (non-blocking)
+    for (var i = 0; i < videos.length; i++) {
+      setTimeout(function (idx) {
+        loadVideo(idx);
+      }.bind(null, i), i * 200); // Stagger by 200ms to avoid HTTP flooding
+    }
+  } else {
+    // Desktop: intelligent sequential loading
+    loadVideo(0);
+    setTimeout(function () { loadVideo(1); }, 500);
+    setTimeout(function () { loadVideo(2); }, 1000);
+  }
+
+  // Start playback immediately
   tryPlay(videos[0]);
 
   if (videos.length < 2) return;
 
-  // Schedule loading of subsequent videos
-  // Load video 2 after 1 second (video 1 should be preloading by then)
-  setTimeout(function () { loadVideo(1); }, 1000);
-  // Load video 3 after 3 seconds
-  setTimeout(function () { loadVideo(2); }, 3000);
-
-  // Rotation every 6 seconds with lazy loading of remaining videos
+  // Rotation every 5 seconds with pre-buffering
   var currentVidIdx = 0;
   var rotationInterval = setInterval(function () {
     var next = (currentVidIdx + 1) % videos.length;
     var nextNext = (next + 1) % videos.length;
+    var nextNextNext = (nextNext + 1) % videos.length;
 
-    // Preload the next-next video before rotation happens
+    // Ensure next videos are preloaded before transition
     loadVideo(nextNext);
+    loadVideo(nextNextNext);
 
     videos[currentVidIdx].style.opacity = '0';
     videos[currentVidIdx].pause();
@@ -1737,7 +1746,7 @@
     currentVidIdx = next;
     videos[currentVidIdx].style.opacity = '0.75';
     tryPlay(videos[currentVidIdx]);
-  }, 6000);
+  }, 5000);
 })();
 </script>
 
