@@ -1024,7 +1024,6 @@
     #menuBtnMobile { display: flex !important; }
     .menu-overlay { top: 56px; right: 16px; width: calc(100vw - 32px); }
     #hero video { preload: metadata; }
-    #heroFallback { display: none; }
   }
 
   /* ─── GRADIENT TITLES ─── */
@@ -1282,7 +1281,6 @@
   <video class="heroVideoAlt" muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center center;z-index:0;opacity:0;" preload="none"><source src="videos/3.mp4" type="video/mp4"></video>
   <video class="heroVideoAlt" muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center center;z-index:0;opacity:0;" preload="none"><source src="videos/4.mp4" type="video/mp4"></video>
   <video class="heroVideoAlt" muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center center;z-index:0;opacity:0;" preload="none"><source src="videos/5.mp4" type="video/mp4"></video>
-  <img id="heroFallback" src="images/450034373c45.jpg" alt="Chuby Dice" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center center;z-index:0;opacity:0.75;" />
   <h1 class="hero-title">
     <span class="c1">C</span><span class="c2">HUBY</span> <span class="c3">D</span><span class="c4">ICE</span>
   </h1>
@@ -1649,7 +1647,6 @@
 <script>
 (function () {
   var heroVideo = document.getElementById('heroVideo');
-  var heroFallback = document.getElementById('heroFallback');
   var videos = document.querySelectorAll('#hero video');
   
   if (videos.length < 1) return;
@@ -1670,10 +1667,7 @@
   // Try to play first video
   setTimeout(function() {
     videos[0].play().catch(function(err) {
-      console.log('Video autoplay failed, using fallback image');
-      videos.forEach(function(v) { v.style.display = 'none'; });
-      heroFallback.style.display = 'block';
-      heroFallback.style.opacity = '0.75';
+      console.log('Video autoplay failed');
     });
   }, isMobile() ? 500 : 100);
   
