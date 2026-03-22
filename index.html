@@ -573,20 +573,25 @@
     touch-action: none;
     transform: translateY(0) rotateZ(0deg) scale(1);
     transition: transform 0.1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    z-index: 100;
     opacity: 1;
   }
+  .stacked-card:nth-child(1) { z-index: 103; }
+  .stacked-card:nth-child(2) { z-index: 102; }
+  .stacked-card:nth-child(3) { z-index: 101; }
+  
   .stacked-card.exiting { transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
   .stacked-card.saved { background: linear-gradient(135deg, rgba(245,197,24,0.1), rgba(245,197,24,0.05)); }
-  .stacked-card:not(:first-child) {
-    transform: translateY(8px) scale(0.95);
-    opacity: 0.7;
+  
+  .stacked-card:nth-child(n+2) {
+    transform: translateY(12px) scale(0.93);
+    opacity: 0.65;
     pointer-events: none;
   }
-  .stacked-card:nth-child(3) {
-    transform: translateY(16px) scale(0.9);
-    opacity: 0.4;
+  .stacked-card:nth-child(n+3) {
+    transform: translateY(24px) scale(0.86);
+    opacity: 0.35;
   }
+  
   .stacked-card.dragging { transition: none; box-shadow: 0 20px 60px rgba(0,0,0,0.8); }
 
   /* Swipe indicators */
@@ -1992,10 +1997,15 @@
         const nextCards = Array.from(cardStack.querySelectorAll('.stacked-card'));
         if (nextCards.length > 0) {
           setupCardInteraction(nextCards[0], currentIndex);
-          // Animate next cards into view
+          // Update z-indices and animate next cards into view
           nextCards.forEach((c, i) => {
-            if (i > 0) {
-              c.style.transform = `translateY(${(i - 1) * 8}px) scale(${1 - (i - 1) * 0.05})`;
+            c.style.zIndex = (103 - i).toString();
+            if (i === 0) {
+              c.style.transform = 'translateY(0) scale(1)';
+            } else if (i === 1) {
+              c.style.transform = 'translateY(12px) scale(0.93)';
+            } else {
+              c.style.transform = 'translateY(24px) scale(0.86)';
             }
           });
         }
