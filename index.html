@@ -1670,19 +1670,80 @@
     return;
   }
 
+  function tryPlay(v) {
+    if (v.paused) {
+      v.play().catch(function () {});
+    }
+  }
+
   if (isMobile) {
     // Mobile: play only the first video — no rotation, saves bandwidth & battery
     for (var i = 1; i < videos.length; i++) {
       videos[i].style.display = 'none';
     }
-    videos[0].preload = 'auto';
-    videos[0].play().catch(function () {});
+    var video = videos[0];
+    video.preload = 'auto';
+    var loaded = false;
+    var stallTimer = null;
+
+    function onStall() {
+      clearTimeout(stallTimer);
+      stallTimer = setTimeout(function () {
+        video.load();
+        tryPlay(video);
+      }, 3000);
+    }
+
+    function onPlaying() {
+      clearTimeout(stallTimer);
+    }
+
+    if (!loaded) {
+      loaded = true;
+      video.addEventListener('canplay', function () { tryPlay(video); });
+      video.addEventListener('stalled', onStall);
+      video.addEventListener('waiting', onStall);
+      video.addEventListener('playing', onPlaying);
+      video.addEventListener('error', function () {
+        setTimeout(function () { video.load(); tryPlay(video); }, 2000);
+      });
+      video.load();
+    }
     return;
   }
 
   // Desktop: preload all, then crossfade
-  videos.forEach(function (v) { v.preload = 'auto'; });
-  videos[0].play().catch(function () {});
+  videos.forEach(function (v) {
+    v.preload = 'auto';
+    var loaded = false;
+    var stallTimer = null;
+
+    function onStall() {
+      clearTimeout(stallTimer);
+      stallTimer = setTimeout(function () {
+        v.load();
+        tryPlay(v);
+      }, 3000);
+    }
+
+    function onPlaying() {
+      clearTimeout(stallTimer);
+    }
+
+    if (!loaded) {
+      loaded = true;
+      v.addEventListener('canplay', function () { tryPlay(v); });
+      v.addEventListener('stalled', onStall);
+      v.addEventListener('waiting', onStall);
+      v.addEventListener('playing', onPlaying);
+      v.addEventListener('error', function () {
+        setTimeout(function () { v.load(); tryPlay(v); }, 2000);
+      });
+      v.load();
+    }
+  });
+
+  tryPlay(videos[0]);
 
   if (videos.length < 2) return;
   var current = 0;
@@ -1692,7 +1753,7 @@
     videos[prev].style.opacity = '0';
     videos[prev].pause();
     videos[current].style.opacity = '0.75';
-    videos[current].play().catch(function () {});
+    tryPlay(videos[current]);
   }, 6000);
 })();
 </script>
