@@ -20,7 +20,7 @@
 <link rel="icon" type="image/x-icon" href="images/09c9ec4a0ce4.ico"/>
 <link rel="icon" type="image/png" sizes="32x32" href="images/8cbe784dd268.png"/>
 <link rel="apple-touch-icon" sizes="180x180" href="images/8cbe784dd268.png"/>
-<link rel="preload" as="video" href="videos/1.mp4" type="video/mp4"/>
+<link rel="preload" as="video" href="videos/live.mp4" type="video/mp4"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700;900&family=Barlow+Condensed:wght@700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
@@ -1411,12 +1411,8 @@
 <!-- HERO -->
 <section id="hero">
   <video id="heroVideo" muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center center;z-index:0;opacity:0.75;" preload="auto">
-    <source src="videos/1.mp4" type="video/mp4">
+    <source src="videos/live.mp4" type="video/mp4">
   </video>
-  <video class="heroVideoAlt" muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center center;z-index:0;opacity:0;" preload="none"><source src="videos/2.mp4" type="video/mp4"></video>
-  <video class="heroVideoAlt" muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center center;z-index:0;opacity:0;" preload="none"><source src="videos/3.mp4" type="video/mp4"></video>
-  <video class="heroVideoAlt" muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center center;z-index:0;opacity:0;" preload="none"><source src="videos/4.mp4" type="video/mp4"></video>
-  <video class="heroVideoAlt" muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center center;z-index:0;opacity:0;" preload="none"><source src="videos/5.mp4" type="video/mp4"></video>
   <h1 class="hero-title">
     <span class="c1">C</span><span class="c2">HUBY</span> <span class="c3">D</span><span class="c4">ICE</span>
   </h1>
@@ -1850,93 +1846,25 @@
 })();
 </script>
 
-<!-- Hero video crossfade -->
+<!-- Hero video -->
 <script>
 (function () {
-  var videos = Array.prototype.slice.call(document.querySelectorAll('#hero video'));
-  if (!videos.length) return;
-
-  var isMobile = window.innerWidth < 768 || ('ontouchstart' in window);
-
-  // Respect data-saver / slow connections — show poster only
+  var v = document.getElementById('heroVideo');
+  if (!v) return;
   var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
   if (conn && (conn.saveData || conn.effectiveType === '2g' || conn.effectiveType === 'slow-2g')) {
-    videos.forEach(function (v) { v.style.display = 'none'; });
+    v.style.display = 'none';
     return;
   }
-
-  function tryPlay(v) {
-    if (v.paused) {
-      v.play().catch(function () {});
-    }
-  }
-
-  function setupVideoWithRecovery(v) {
-    var stallTimer = null;
-    function onStall() {
-      clearTimeout(stallTimer);
-      stallTimer = setTimeout(function () {
-        v.load();
-        tryPlay(v);
-      }, 2000);
-    }
-    function onPlaying() {
-      clearTimeout(stallTimer);
-    }
-    v.addEventListener('canplay', function () { tryPlay(v); }, { once: true });
-    v.addEventListener('canplaythrough', function () { clearTimeout(stallTimer); }, { once: true });
-    v.addEventListener('stalled', onStall);
-    v.addEventListener('waiting', onStall);
-    v.addEventListener('playing', onPlaying);
-    v.addEventListener('error', function () {
-      setTimeout(function () { v.load(); tryPlay(v); }, 2000);
-    });
-  }
-
-  var loadedVideos = new Set();
-
-  function loadVideo(idx) {
-    if (loadedVideos.has(idx) || idx >= videos.length) return;
-    loadedVideos.add(idx);
-    videos[idx].preload = 'auto';
-    setupVideoWithRecovery(videos[idx]);
-    // Only call load() if browser hasn't started fetching yet
-    if (videos[idx].readyState === 0) videos[idx].load();
-  }
-
-  // Video 0 already loading via preload="auto" in HTML — just attach events
-  loadedVideos.add(0);
-  setupVideoWithRecovery(videos[0]);
-  tryPlay(videos[0]);
-
-  // Preload video 1 after a short delay
-  setTimeout(function () { loadVideo(1); }, isMobile ? 3000 : 800);
-
-  if (videos.length < 2) return;
-
-  // Rotation every 6 seconds — only switch when next video has buffered enough
-  var currentVidIdx = 0;
-  var rotationInterval = setInterval(function () {
-    var next = (currentVidIdx + 1) % videos.length;
-    var upcoming = (next + 1) % videos.length;
-
-    // Ensure upcoming video starts loading ahead of time
-    loadVideo(upcoming);
-
-    // Wait until next video has enough data before switching
-    if (videos[next].readyState < 3) {
-      loadVideo(next);
-      tryPlay(videos[currentVidIdx]);
-      return;
-    }
-
-    videos[currentVidIdx].style.opacity = '0';
-    videos[currentVidIdx].pause();
-
-    currentVidIdx = next;
-    videos[currentVidIdx].style.opacity = '0.75';
-    tryPlay(videos[currentVidIdx]);
-  }, 6000);
+  var stallTimer = null;
+  function tryPlay() { if (v.paused) v.play().catch(function () {}); }
+  function onStall() { clearTimeout(stallTimer); stallTimer = setTimeout(function () { v.load(); tryPlay(); }, 2000); }
+  v.addEventListener('canplay', tryPlay, { once: true });
+  v.addEventListener('stalled', onStall);
+  v.addEventListener('waiting', onStall);
+  v.addEventListener('playing', function () { clearTimeout(stallTimer); });
+  v.addEventListener('error', function () { setTimeout(function () { v.load(); tryPlay(); }, 2000); });
+  tryPlay();
 })();
 </script>
 
