@@ -1904,33 +1904,23 @@
     videos[idx].load();
   }
 
-  // Mobile: load only first video, no rotation
-  if (isMobile) {
-    loadVideo(0);
-    tryPlay(videos[0]);
-    return;
-  }
-
-  // Desktop: intelligent sequential loading
+  // Load first video immediately, second after a short delay
   loadVideo(0);
-  setTimeout(function () { loadVideo(1); }, 500);
-  setTimeout(function () { loadVideo(2); }, 1000);
+  setTimeout(function () { loadVideo(1); }, isMobile ? 2000 : 500);
 
   // Start playback immediately
   tryPlay(videos[0]);
 
   if (videos.length < 2) return;
 
-  // Rotation every 5 seconds with pre-buffering
+  // Rotation every 5 seconds — load next video just before it's needed
   var currentVidIdx = 0;
   var rotationInterval = setInterval(function () {
     var next = (currentVidIdx + 1) % videos.length;
-    var nextNext = (next + 1) % videos.length;
-    var nextNextNext = (nextNext + 1) % videos.length;
+    var preload = (next + 1) % videos.length;
 
-    // Ensure next videos are preloaded before transition
-    loadVideo(nextNext);
-    loadVideo(nextNextNext);
+    // Load the upcoming video ahead of time
+    loadVideo(preload);
 
     videos[currentVidIdx].style.opacity = '0';
     videos[currentVidIdx].pause();
