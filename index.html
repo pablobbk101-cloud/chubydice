@@ -1745,7 +1745,7 @@
   // Video autoplay is handled by the crossfade script below
 </script>
 
-<script src="/chatbot.js"></script>
+<script src="/chatbot.js" defer></script>
 
 <!-- 3D card tilt + sheen (desktop only) -->
 <script>
@@ -1904,20 +1904,17 @@
     videos[idx].load();
   }
 
-  // Mobile: start all videos loading immediately for smooth rotation
+  // Mobile: load only first video, no rotation
   if (isMobile) {
-    // Load all 5 videos in background immediately (non-blocking)
-    for (var i = 0; i < videos.length; i++) {
-      setTimeout(function (idx) {
-        loadVideo(idx);
-      }.bind(null, i), i * 200); // Stagger by 200ms to avoid HTTP flooding
-    }
-  } else {
-    // Desktop: intelligent sequential loading
     loadVideo(0);
-    setTimeout(function () { loadVideo(1); }, 500);
-    setTimeout(function () { loadVideo(2); }, 1000);
+    tryPlay(videos[0]);
+    return;
   }
+
+  // Desktop: intelligent sequential loading
+  loadVideo(0);
+  setTimeout(function () { loadVideo(1); }, 500);
+  setTimeout(function () { loadVideo(2); }, 1000);
 
   // Start playback immediately
   tryPlay(videos[0]);
@@ -1937,7 +1934,7 @@
 
     videos[currentVidIdx].style.opacity = '0';
     videos[currentVidIdx].pause();
-    
+
     currentVidIdx = next;
     videos[currentVidIdx].style.opacity = '0.75';
     tryPlay(videos[currentVidIdx]);
