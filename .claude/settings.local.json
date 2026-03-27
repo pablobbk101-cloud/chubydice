@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx --yes sharp-cli --version)",
+      "Bash(npx --yes @squoosh/cli --version)"
+    ]
+  }
+}
