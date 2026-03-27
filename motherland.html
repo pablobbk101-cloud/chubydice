@@ -5,18 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Chuby Dice"/>
-<meta property="og:title" content="Full Series Pass | Chuby Dice"/>
-<meta property="og:description" content="Get full access to the 9-week Chuby Dice Series at a discounted rate. The complete Dancehall journey."/>
-<meta property="og:url" content="https://graceful-cascaron-d11800.netlify.app/full-series.html"/>
+<meta property="og:title" content="Motherland | Chuby Dice Series"/>
+<meta property="og:description" content="Motherland — a new Chuby Dice Series module coming May 2026."/>
+<meta property="og:url" content="https://graceful-cascaron-d11800.netlify.app/motherland.html"/>
 <meta property="og:image" content="https://graceful-cascaron-d11800.netlify.app/chuby-profile-CkJq2sVN.jpg"/>
 <meta property="og:image:width" content="898"/>
 <meta property="og:image:height" content="1600"/>
 <meta property="og:image:alt" content="Chuby Dice — Dancehall Artist"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Full Series Pass | Chuby Dice"/>
-<meta name="twitter:description" content="Get full access to the 9-week Chuby Dice Series at a discounted rate. The complete Dancehall journey."/>
+<meta name="twitter:title" content="Motherland | Chuby Dice Series"/>
+<meta name="twitter:description" content="Motherland — a new Chuby Dice Series module coming May 2026."/>
 <meta name="twitter:image" content="https://graceful-cascaron-d11800.netlify.app/chuby-profile-CkJq2sVN.jpg"/>
-<title>Full Series | Chuby Dice</title>
+<title>Motherland | Chuby Dice Series</title>
 <link rel="icon" type="image/x-icon" href="images/09c9ec4a0ce4.ico"/>
 <link rel="icon" type="image/png" sizes="32x32" href="images/8cbe784dd268.png"/>
 <link rel="apple-touch-icon" sizes="180x180" href="images/8cbe784dd268.png"/>
@@ -31,7 +31,6 @@
     --black: #0A0A0A;
     --dark: #111111;
     --border: #242424;
-    --purple-dark: #1a0a1e;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -70,30 +69,17 @@
     display: flex; flex-direction: column; justify-content: flex-end;
     padding: 0 80px 80px;
     position: relative; overflow: hidden;
-    background: radial-gradient(ellipse 80% 70% at 70% 40%, #4a0c1a 0%, #2d0810 40%, #0A0A0A 75%);
+    background: radial-gradient(ellipse 80% 70% at 70% 40%, #0d3a2a 0%, #061a12 40%, #0A0A0A 75%);
   }
-
-  /* Photo placeholder — full bleed */
-  .hero-photo {
-    position: absolute; inset: 0;
-    background: #0d0d0d;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
-    color: rgba(255,255,255,0.06);
-  }
-
-  /* Gradient overlay — fades bottom to black so text reads */
   .hero-overlay {
     position: absolute; inset: 0;
     background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.92) 85%, #0A0A0A 100%);
     z-index: 1;
   }
-
   .hero-content {
     position: relative; z-index: 2;
     max-width: 680px;
   }
-
   .hero-title {
     font-family: 'Barlow', sans-serif;
     font-size: clamp(3rem, 8vw, 6.5rem);
@@ -103,7 +89,6 @@
     margin-bottom: 16px;
     opacity: 0; animation: fadeUp 0.6s ease 0.1s forwards;
   }
-
   .hero-desc {
     font-size: 1.05rem; line-height: 1.7;
     color: rgba(255,255,255,0.55);
@@ -127,22 +112,17 @@
     font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.7);
   }
   .info-pill svg { color: rgba(255,255,255,0.4); }
-  .info-pill.price { color: var(--yellow); border-color: rgba(245,197,24,0.2); background: rgba(245,197,24,0.05); }
-  .info-pill.price span { color: rgba(255,255,255,0.4); font-weight: 400; }
+  .info-pill.coming-soon { color: var(--yellow); border-color: rgba(245,197,24,0.2); background: rgba(245,197,24,0.05); }
 
   /* ─── BODY SECTION ─── */
   .body-section {
-    background: linear-gradient(180deg, #0A0A0A 0%, #3d0c14 30%, #4d1020 55%, #2d0810 75%, #0A0A0A 100%);
+    background: linear-gradient(180deg, #0A0A0A 0%, #061a12 30%, #0a2a1a 55%, #081408 75%, #0A0A0A 100%);
     padding: 80px 80px 100px;
     display: grid;
     grid-template-columns: 1fr 380px;
     gap: 60px;
     align-items: start;
   }
-
-  /* Left content */
-  .content-left {}
-
   .section-heading {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.8rem; letter-spacing: 0.06em;
@@ -150,7 +130,6 @@
     color: var(--white);
   }
   .section-heading span { color: var(--yellow); }
-
   .body-text {
     font-size: 0.97rem; line-height: 1.8;
     color: rgba(255,255,255,0.6);
@@ -177,6 +156,23 @@
     flex-shrink: 0;
   }
 
+  /* ─── PRICING SELECTOR ─── */
+  .pricing-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+  .price-option { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; cursor: pointer; transition: border-color 0.2s, background 0.2s; background: transparent; position: relative; }
+  .price-option:hover { border-color: rgba(245,197,24,0.25); background: rgba(245,197,24,0.03); }
+  .price-option.selected { border-color: var(--yellow); background: rgba(245,197,24,0.06); }
+  .price-option-left { display: flex; align-items: center; gap: 12px; }
+  .price-radio { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: border-color 0.2s; }
+  .price-option.selected .price-radio { border-color: var(--yellow); }
+  .price-radio-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--yellow); opacity: 0; transform: scale(0); transition: opacity 0.2s, transform 0.2s; }
+  .price-option.selected .price-radio-dot { opacity: 1; transform: scale(1); }
+  .price-option-label { font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.6); }
+  .price-option.selected .price-option-label { color: var(--white); }
+  .price-option-amount { font-family: 'Barlow', sans-serif; font-size: 0.9rem; font-weight: 800; color: var(--yellow); }
+  .price-option-save { position: absolute; top: -8px; right: 12px; background: var(--yellow); color: var(--black); font-size: 0.55rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; }
+  .btn-book-now { display: block; width: 100%; background: var(--yellow); color: var(--black); border: none; border-radius: 8px; font-family: 'Barlow', sans-serif; font-weight: 900; font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 16px; cursor: pointer; text-align: center; margin-bottom: 12px; transition: transform 0.2s, box-shadow 0.2s; }
+  .btn-book-now:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,197,24,0.35); }
+
   /* Right booking card */
   .booking-card {
     background: #111;
@@ -191,25 +187,20 @@
     margin-bottom: 20px;
   }
   .booking-card-title span { color: var(--yellow); }
-
   .booking-card p {
     font-size: 0.9rem; line-height: 1.7;
     color: rgba(255,255,255,0.45);
     margin-bottom: 28px;
   }
-
-  .btn-book-now {
+  .btn-coming-soon {
     display: block; width: 100%;
-    background: var(--yellow); color: var(--black);
-    border: none; border-radius: 8px;
+    background: rgba(245,197,24,0.15); color: var(--yellow);
+    border: 1px solid rgba(245,197,24,0.25); border-radius: 8px;
     font-family: 'Barlow', sans-serif; font-weight: 900;
     font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 16px; cursor: pointer; text-align: center;
+    padding: 16px; cursor: default; text-align: center;
     margin-bottom: 12px;
-    transition: transform 0.2s, box-shadow 0.2s;
   }
-  .btn-book-now:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,197,24,0.35); }
-
   .btn-book-series {
     display: block; width: 100%;
     background: transparent; color: var(--yellow);
@@ -221,7 +212,6 @@
     transition: background 0.2s, border-color 0.2s;
   }
   .btn-book-series:hover { background: rgba(245,197,24,0.06); border-color: rgba(245,197,24,0.5); }
-
   .price-note {
     text-align: center;
     font-size: 0.85rem; font-weight: 700;
@@ -255,26 +245,6 @@
     line-height: 1.8;
   }
 
-  /* ─── FOOTER ─── */
-  footer { background: var(--dark); border-top: 1px solid var(--border); padding: 60px 36px 36px; }
-  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 40px; max-width: 1100px; margin: 0 auto 48px; }
-  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.05em; }
-  .footer-logo span { color: var(--yellow); }
-  .footer-tagline { font-size: 0.9rem; color: rgba(255,255,255,0.3); font-style: italic; margin: 8px 0 16px; max-width: 280px; line-height: 1.5; }
-  .footer-address { font-size: 0.8rem; color: rgba(255,255,255,0.25); }
-  .footer-address strong { color: var(--yellow); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; }
-  .footer-socials { display: flex; gap: 12px; margin-top: 20px; }
-  .social-icon { width: 38px; height: 38px; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: border-color 0.2s; color: rgba(255,255,255,0.4); text-decoration: none; }
-  .social-icon:hover { border-color: var(--yellow); color: var(--yellow); }
-  .footer-links h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 16px; }
-  .footer-links a { display: block; font-size: 0.9rem; color: rgba(255,255,255,0.5); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
-  .footer-links a:hover { color: var(--yellow); }
-  .footer-bottom { max-width: 1100px; margin: 0 auto; padding-top: 28px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-  .footer-bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.2); }
-  .footer-bottom-links { display: flex; gap: 20px; }
-  .footer-bottom-links a { font-size: 0.8rem; color: rgba(255,255,255,0.25); text-decoration: none; transition: color 0.2s; }
-  .footer-bottom-links a:hover { color: rgba(255,255,255,0.5); }
-
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(16px); }
     to { opacity: 1; transform: translateY(0); }
@@ -288,7 +258,8 @@
     .location-section { padding: 60px 32px; }
   }
   @media (max-width: 640px) {
-    section, .hero, .body-section, .location-section { padding-left: 16px !important; padding-right: 16px !important; }
+    section, .hero, .body-section, .location-section, .info-strip { padding-left: 16px !important; padding-right: 16px !important; }
+    .booking-card { margin: 0 16px; }
     nav { grid-template-columns: 1fr auto; padding: 14px 20px; backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(10,10,10,0.96); }
     .nav-center { display: none; }
     #navBookBtn { display: none; }
@@ -319,12 +290,12 @@
 <div class="menu-overlay" id="menuOverlay">
   <a href="index.html">Home</a>
   <a href="series.html" class="active">Chuby Dice Series</a>
-  <a href="past-series.html">Past Sessions</a>
-  <a href="in-ya-city.html">Chuby Dice in Ya City</a>
-  <a href="coaching.html">1:1 Coaching &amp; Programs</a>
-  <a href="clash.html">Clash</a>
+  <a href="clash.html">Clash Inna Dancehall</a>
+  <a href="coaching.html">Professional 1:1 Coaching &amp; Programs</a>
+  <a href="academy.html">Dancehall Academy — Launching 2026</a>
   <a href="about.html">About Chuby Dice</a>
-  <a href="academy.html">Chuby Dice Dancehall Academy</a>
+  <a href="in-ya-city.html">Chuby Dice in Ya City</a>
+  <a href="past-series.html">Past Sessions</a>
   <a href="contact.html">Contact / Instagram</a>
   <div class="menu-divider"></div>
   <button class="menu-book" onclick="location.href='series.html'">Book a Class</button>
@@ -332,22 +303,26 @@
 
 <!-- ─── HERO ─── -->
 <section class="hero">
-  <img src="images/e03deced0cad.png" alt="Full Collection" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" />
+  <img src="images/motherland.png" alt="Motherland" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0;opacity:0.75;" />
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <h1 class="hero-title">FULL SERIES</h1>
-    <p class="hero-desc">Access to the full Q1 2026 Chuby Dice Series at a discounted rate, providing a 9-week &ldquo;term-like&rdquo; combined course.</p>
+    <h1 class="hero-title">MOTHERLAND</h1>
+    <p class="hero-desc">Thank your mum with Jamaican Dancehall</p>
   </div>
 </section>
 
 <!-- ─── INFO STRIP ─── -->
 <div class="info-strip">
   <div class="info-pill">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-    9 weeks
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+    May 2026
   </div>
-  <div class="info-pill price">
-    $220 <span>/ module</span>
+  <div class="info-pill">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+    Tuesdays · 7:30–8:30pm
+  </div>
+  <div class="info-pill coming-soon">
+    From $30
   </div>
 </div>
 
@@ -357,37 +332,67 @@
   <div class="content-left">
     <h2 class="section-heading">TAILORING YOUR <span>COACHING FOCUS</span></h2>
 
-    <p class="body-text">Get the complete Dancehall experience with the Full Series package. This bundle combines the classic, soulful movements of Lovers&rsquo; Rock with the authentic, foundational steps of March Back in Time.</p>
+    <p class="body-text">Motherland reflects on the newest of New School moves, tracing lineages and building Dancehall vocabulary.</p>
 
-    <p class="body-text" style="margin-bottom: 4px;">What&rsquo;s included in the Full Series:</p>
+    <p class="body-text">In the context of Jamaican Dancehall, "mother" is not just care. It is structure, discipline, and sacrifice, transforming pickney youth.</p>
 
-    <p class="body-text" style="margin-bottom: 6px; color: rgba(255,255,255,0.8); font-weight: 700;">LOVERS&rsquo; ROCK (4 weeks):</p>
-    <ul class="learn-list" style="margin-top: 0; margin-bottom: 24px;">
-      <li>New School male dancehall moves, adapted to choreography</li>
-      <li>Choreography fluency</li>
-      <li>Male dancehall flow at slow to mid tempo</li>
-      <li>Continuous movement between steps &amp; finishing movement</li>
-      <li>Weight placement, grounding, and lower-body control</li>
+    <p class="body-text">In this course, Chuby takes you through both foundation and new school Dancehall. Not separating them, but showing how the same root carries forward.</p>
+
+    <p class="body-text" style="margin-bottom: 4px;">In this Series, you'll cover:</p>
+    <ul class="learn-list">
+      <li>Sharper execution and control</li>
+      <li>Timing and musical awareness — an ability to recognise sub-genres of Dancehall</li>
+      <li>The Patois behind the dance — and how Dancehall music explains ordinary relationships</li>
     </ul>
-
-    <p class="body-text" style="margin-bottom: 6px; color: rgba(255,255,255,0.8); font-weight: 700;">March Back in Time (5 weeks):</p>
-    <ul class="learn-list" style="margin-top: 0; margin-bottom: 24px;">
-      <li>Core Black Dice history &amp; moves</li>
-      <li>The transition from mid-school to new-school dancehall mechanics</li>
-      <li>Grounding, bounce, and rhythmic consistency across eras</li>
-      <li>How foundational steps evolved into modern variation</li>
-      <li>Flow, stamina, and repetition used in party and crew settings</li>
-    </ul>
-
-    <p class="body-text">This bundle is perfect for dancers who want to explore the full spectrum of Dancehall culture.</p>
   </div>
 
   <!-- Booking card -->
   <div class="booking-card">
     <div class="booking-card-title">READY TO <span>TRAIN?</span></div>
-    <p>Join the full collection &amp; Q1 cohort with Chuby Dice.</p>
-    <button class="btn-book-now" onclick="window.open('https://buy.stripe.com/eVq6oHbkn5Fo25ccFp4F205','_blank')">Book Now</button>
-    <p class="price-note"><strong>$220</strong> · 9 weeks</p>
+    <p>Choose your pass for Motherland — every Tuesday, May 2026.</p>
+
+    <div class="pricing-options" id="pricingOptions">
+      <div class="price-option selected" data-price="30" onclick="selectPrice(this)">
+        <div class="price-option-left">
+          <div class="price-radio"><div class="price-radio-dot"></div></div>
+          <span class="price-option-label">Single Class</span>
+        </div>
+        <span class="price-option-amount">$30</span>
+      </div>
+      <div class="price-option" data-price="100" onclick="selectPrice(this)">
+        <div class="price-option-left">
+          <div class="price-radio"><div class="price-radio-dot"></div></div>
+          <span class="price-option-label">4 Classes</span>
+        </div>
+        <span class="price-option-amount">$100</span>
+      </div>
+      <div class="price-option" data-price="125" onclick="selectPrice(this)">
+        <div class="price-option-left">
+          <div class="price-radio"><div class="price-radio-dot"></div></div>
+          <span class="price-option-label">5 Classes</span>
+        </div>
+        <span class="price-option-amount">$125</span>
+      </div>
+      <div class="price-option" data-price="230" onclick="selectPrice(this)">
+        <span class="price-option-save">Save 23%</span>
+        <div class="price-option-left">
+          <div class="price-radio"><div class="price-radio-dot"></div></div>
+          <span class="price-option-label">10 Classes</span>
+        </div>
+        <span class="price-option-amount">$230</span>
+      </div>
+      <div class="price-option" data-price="400" onclick="selectPrice(this)">
+        <span class="price-option-save">Save 33%</span>
+        <div class="price-option-left">
+          <div class="price-radio"><div class="price-radio-dot"></div></div>
+          <span class="price-option-label">20 Classes</span>
+        </div>
+        <span class="price-option-amount">$400</span>
+      </div>
+    </div>
+
+    <button class="btn-book-now" id="bookBtn" onclick="alert('Stripe link coming soon')">Book Now — $30</button>
+    <button class="btn-book-series" onclick="location.href='past-series.html'">View Past Sessions</button>
   </div>
 
 </section>
@@ -404,42 +409,7 @@
 </div>
 </a>
 
-<!-- ─── FOOTER ─── -->
-<footer>
-  <div class="footer-top">
-    <div>
-      <div class="footer-logo">CHUBY <span>DICE</span></div>
-      <p class="footer-tagline">"Dancehall belongs to everybody — but it must stay connected to where it comes from."</p>
-      <a href="https://maps.app.goo.gl/KFathEk6HmMajmHH7" target="_blank" rel="noopener" class="footer-address" style="text-decoration:none;display:block;"><strong>HD Entertainment</strong> · Enter Via, Mount St, Prahran VIC 3181, Australia</a>
-      <div class="footer-socials">
-        <a class="social-icon" href="https://instagram.com/chuby_dice" target="_blank">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-        </a>
-        <a class="social-icon" href="/cdn-cgi/l/email-protection#8eede6fbecf7eae7edebbdcee9e3efe7e2a0ede1e3">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        </a>
-      </div>
-    </div>
-    <div class="footer-links">
-      <h4>Quick Links</h4>
-      <a href="series.html">Classes</a>
-      <a href="about.html">About Chuby</a>
-      <a href="contact.html">Contact</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2026 Chuby Dice Dance Academy. All rights reserved.</p>
-    <div class="footer-bottom-links">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
-    </div>
-  </div>
-  <div style="max-width:1100px;margin:20px auto 0;padding-top:16px;border-top:1px solid var(--border);text-align:center;">
-    <p style="font-size:0.75rem;color:rgba(255,255,255,0.2);">Site made and managed by BBK Productions</p>
-  </div>
-</footer>
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   function toggleMenu() {
     const overlay = document.getElementById('menuOverlay');
     const btn = document.getElementById('menuBtn');
@@ -452,7 +422,30 @@
     const overlay = document.getElementById('menuOverlay');
     const btn = document.getElementById('menuBtn');
     const btnM = document.getElementById('menuBtnMobile');
-    if (overlay.classList.contains('open') &&
-        !overlay.contains(e.target) && !btn.contains(e.target) && !btnM.contains(e.target)) {
-
+    if (overlay && overlay.classList.contains('open') &&
+        !overlay.contains(e.target) && !btn.contains(e.target) && (!btnM || !btnM.contains(e.target))) {
+      overlay.classList.remove('open');
+      btn.classList.remove('open');
+      if (btnM) btnM.classList.remove('open');
+    }
+  });
+</script>
 <script src="/chatbot.js"></script>
+<script>
+function selectPrice(el) {
+  document.querySelectorAll('.price-option').forEach(function(opt) {
+    opt.classList.remove('selected');
+  });
+  el.classList.add('selected');
+  var price = el.getAttribute('data-price');
+  var btn = document.getElementById('bookBtn');
+  if (btn) btn.textContent = 'Book Now — $' + price;
+}
+</script>
+
+<!-- BBK PRODUCTIONS CREDIT -->
+<footer style="background:#111111;border-top:1px solid #2A2A2A;padding:20px;text-align:center;">
+  <p style="font-size:0.75rem;color:rgba(255,255,255,0.2);">Site made and managed by BBK Productions</p>
+</footer>
+</body>
+</html>

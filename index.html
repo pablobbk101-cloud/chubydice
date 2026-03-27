@@ -434,14 +434,14 @@
 
   .tile-meta {
     font-size: 0.8rem;
-    color: rgba(255,255,255,0.45);
+    color: rgba(255,255,255,0.7);
     margin-bottom: 10px;
   }
   .tile-meta strong { color: var(--yellow); }
 
   .tile-desc {
     font-size: 0.85rem;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255,255,255,0.8);
     line-height: 1.55;
     margin-bottom: 18px;
   }
@@ -546,6 +546,11 @@
   .series-carousel-wrap {
     display: none;
   }
+
+  /* ─── FLYER CAROUSEL (mobile only) ─── */
+  .carousel-wrap { display: none; }
+  #carouselDots { display: none; }
+  .series-grid-desktop { display: grid; }
 
   /* ─── MEET THE ARTIST ─── */
   #artist {
@@ -1001,6 +1006,10 @@
     from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: translateY(0); }
   }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
   @keyframes bounce {
     0%, 100% { transform: translateX(-50%) translateY(0); }
     50% { transform: translateX(-50%) translateY(-8px); }
@@ -1016,6 +1025,105 @@
     .artist-container { grid-template-columns: 1fr; gap: 40px; }
     #series { padding-left: 0; padding-right: 0; }
     #series .series-header { padding: 0 16px; }
+    .series-grid-desktop { display: none !important; }
+    .carousel-wrap {
+      display: block;
+      position: relative;
+      max-width: 100%;
+      padding: 0 16px;
+    }
+    .carousel-track {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 8px 0 16px;
+    }
+    .carousel-track::-webkit-scrollbar { display: none; }
+    .carousel-slide {
+      flex: 0 0 72vw;
+      scroll-snap-align: start;
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      aspect-ratio: 4/5;
+      display: block;
+    }
+    .carousel-slide img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .slide-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.15) 50%, transparent 100%);
+      z-index: 1;
+    }
+    .slide-info {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 2;
+      padding: 16px;
+    }
+    .slide-info h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .slide-info p {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+    }
+    .slide-badge {
+      position: absolute;
+      top: 10px; right: 10px;
+      z-index: 10;
+      display: inline-flex; align-items: center; gap: 5px;
+      border-radius: 50px;
+      padding: 4px 10px;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.55rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .slide-badge-ending {
+      background: rgba(255,70,70,0.15);
+      border: 1px solid rgba(255,70,70,0.3);
+      color: #ff6b6b;
+    }
+    .slide-badge-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #ff6b6b;
+      animation: pulse-dot 1.5s ease-in-out infinite;
+    }
+    .carousel-arrow { display: none; }
+    #carouselDots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 0 0;
+    }
+    #carouselDots .c-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      padding: 0;
+    }
+    #carouselDots .c-dot.active {
+      background: var(--yellow);
+      transform: scale(1.4);
+    }
     .series-grid { display: flex; overflow-x: scroll; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; gap: 14px; padding: 0 16px 16px; scrollbar-width: none; }
     .series-grid::-webkit-scrollbar { display: none; }
     .series-grid .tile { scroll-snap-align: start; flex-shrink: 0; width: 82vw; height: 420px; }
@@ -1027,6 +1135,8 @@
     .tile-single .tile-inner { padding: 36px 16px; }
     #clash-single { padding: 0 16px 48px !important; }
     #clash-single .series-grid { max-width: 100% !important; }
+    #clash-section { padding: 0 16px 48px !important; }
+    #coaching-section { padding: 48px 16px !important; }
     #hero { padding: 120px 16px 60px; }
     .hero-actions { flex-direction: column; align-items: center; gap: 12px; }
     .hero-actions button { width: 100%; max-width: 320px; }
@@ -1195,7 +1305,7 @@
 
   .big-tile-desc {
     font-size: 1.05rem;
-    color: rgba(255,255,255,0.55);
+    color: rgba(255,255,255,0.8);
     line-height: 1.7;
     max-width: 440px;
   }
@@ -1203,7 +1313,7 @@
   .big-tile-price {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.4rem;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.7);
     letter-spacing: 0.05em;
   }
   .big-tile-price span {
@@ -1287,12 +1397,12 @@
 <div class="menu-overlay" id="menuOverlay">
   <a href="#hero" onclick="toggleMenu()">Home</a>
   <a href="series.html" onclick="toggleMenu()">Chuby Dice Series</a>
+  <a href="clash.html" onclick="toggleMenu()">Clash Inna Dancehall</a>
+  <a href="coaching.html" onclick="toggleMenu()">Professional 1:1 Coaching &amp; Programs</a>
+  <a href="academy.html" onclick="toggleMenu()">Dancehall Academy — Launching 2026</a>
+  <a href="about.html" onclick="toggleMenu()">About Chuby Dice</a>
   <a href="in-ya-city.html" onclick="toggleMenu()">Chuby Dice in Ya City</a>
-  <a href="coaching.html" onclick="toggleMenu()">1:1 Coaching &amp; Programs</a>
-  <a href="clash.html" onclick="toggleMenu()">Clash</a>
-  <a href="#single-pass" onclick="toggleMenu()">Single-Class Pass</a>
-  <a href="#artist" onclick="toggleMenu()">About Chuby Dice</a>
-  <a href="#academy" onclick="toggleMenu()">Chuby Dice Dancehall Academy</a>
+  <a href="past-series.html" onclick="toggleMenu()">Past Sessions</a>
   <a href="#connect" onclick="toggleMenu()">Contact / Instagram</a>
   <div class="menu-divider"></div>
   <button class="menu-book" onclick="location.href='series.html'">Book a Class</button>
@@ -1330,30 +1440,22 @@
   <div class="series-header">
     <h2 class="section-title">CHUBY DICE <span>SERIES</span></h2>
   </div>
-  <div class="series-grid">
 
-    <!-- Tile 1: Lovers' Rock -->
-    <div class="tile" style="position:relative;overflow:hidden;background:transparent;">
-      <img src="images/3e8ee0d9a5c6.png" alt="Lovers Rock" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0;opacity:0.85;" loading="lazy">
-      <div class="tile-inner" style="position:relative;z-index:2;">
-        <h3 class="tile-title">LOVERS' ROCK</h3>
-        <p class="tile-meta">4 weeks &nbsp;·&nbsp; <strong>$100</strong></p>
-        <p class="tile-desc">Raw Dancehall lyrics and movement, flow-led storytelling, and February energy... mel odi ready fi love.</p>
-        <div class="tile-actions">
-          <button class="btn-sm-yellow" onclick="window.open('https://buy.stripe.com/7sY3cvgEH7Nw25c7l54F207','_blank')">Book Now</button>
-          <button class="btn-sm-ghost" onclick="location.href='lovers-rock.html'">More</button>
-        </div>
-      </div>
-    </div>
+  <!-- Desktop: Tile Grid -->
+  <div class="series-grid series-grid-desktop">
 
-    <!-- Tile 2: March Back in Time -->
+    <!-- March Back in Time -->
     <div class="tile" style="position:relative;overflow:hidden;">
       <img src="images/a84b4d3eec82.png" alt="March Back in Time" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" loading="lazy">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0.3) 0%,rgba(10,10,10,0.75) 100%);z-index:1;pointer-events:none;"></div>
+      <span style="position:absolute;top:14px;right:14px;z-index:10;display:inline-flex;align-items:center;gap:6px;background:rgba(255,70,70,0.12);border:1px solid rgba(255,70,70,0.25);border-radius:50px;padding:5px 12px;font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#ff6b6b;">
+        <span style="width:5px;height:5px;border-radius:50%;background:#ff6b6b;animation:pulse-dot 1.5s ease-in-out infinite;"></span>
+        Ends Mar 31
+      </span>
       <div class="tile-inner" style="position:relative;z-index:2;">
         <h3 class="tile-title">MARCH BACK IN TIME</h3>
-        <p class="tile-meta">5 weeks &nbsp;·&nbsp; <strong>$125</strong></p>
-        <p class="tile-desc">100% Black Slice moves &amp; history, diving deep into the evolution of Black Slice from Central Village, Spain Town — from Brung Lizard to Free Kick.</p>
+        <p class="tile-meta">5 weeks &nbsp;·&nbsp; March 2026 &nbsp;·&nbsp; <strong>$125</strong></p>
+        <p class="tile-desc">100% Black Dice moves &amp; history, diving deep into the evolution of Black Dice from Central Village, Spain Town — from Grung Lizard to Free Kick.</p>
         <div class="tile-actions">
           <button class="btn-sm-yellow" onclick="window.open('https://buy.stripe.com/cNi9AT1JN3xgeRY34P4F201','_blank')">Book Now</button>
           <button class="btn-sm-ghost" onclick="location.href='march-back-in-time.html'">More</button>
@@ -1361,56 +1463,157 @@
       </div>
     </div>
 
-    <!-- Tile 3 - Featured / Full Collection -->
-    <div class="tile tile-featured" style="position:relative;overflow:hidden;min-height:160px;">
-      <img src="images/e03deced0cad.png" alt="Full Collection" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" loading="lazy">
-      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(10,10,10,0.85) 0%,rgba(10,10,10,0.85) 50%,rgba(10,10,10,0.3) 100%);z-index:1;pointer-events:none;"></div>
-      <span class="best-value-badge">BEST VALUE</span>
+    <!-- Praise Flow -->
+    <div class="tile" style="position:relative;overflow:hidden;background:transparent;">
+      <img src="images/praise-flow.png" alt="Praise Flow" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0;opacity:0.85;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0.3) 0%,rgba(10,10,10,0.75) 100%);z-index:1;pointer-events:none;"></div>
       <div class="tile-inner" style="position:relative;z-index:2;">
-        <div class="tile-featured-left">
-          <span class="tile-badge" style="margin-bottom:10px;">FULL COLLECTION · 9 weeks · $220</span>
-          <h3 class="tile-title">CHUBY DICE SERIES</h3>
-          <p class="tile-meta">9 weeks &nbsp;·&nbsp; <strong>$220</strong></p>
-          <p class="tile-desc">Access to the full Q1 2025 Chuby Dice Series at a discounted rate, providing a 9-week "term-lite" combined course.</p>
+        <h3 class="tile-title">PRAISE FLOW</h3>
+        <p class="tile-meta">April 2026 &nbsp;·&nbsp; Tuesdays 7:30–8:30pm &nbsp;·&nbsp; <strong>From $30</strong></p>
+        <p class="tile-desc">"Let's enter this hall, under one accord, to praise the Lord, no matter the faith" — Chuby Dice</p>
+        <div class="tile-actions">
+          <button class="btn-sm-ghost" onclick="location.href='praise-flow.html'">More Info</button>
         </div>
-        <div class="tile-featured-right">
-          <button class="btn-sm-yellow" onclick="window.open('https://buy.stripe.com/eVq6oHbkn5Fo25ccFp4F205','_blank')">Book Now</button>
-          <button class="btn-sm-ghost" onclick="location.href='full-series.html'">More</button>
+      </div>
+    </div>
+
+    <!-- Motherland -->
+    <div class="tile" style="position:relative;overflow:hidden;background:transparent;">
+      <img src="images/motherland.png" alt="Motherland" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0;opacity:0.85;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0.3) 0%,rgba(10,10,10,0.75) 100%);z-index:1;pointer-events:none;"></div>
+      <div class="tile-inner" style="position:relative;z-index:2;">
+        <h3 class="tile-title">MOTHERLAND</h3>
+        <p class="tile-meta">May 2026 &nbsp;·&nbsp; Tuesdays 7:30–8:30pm &nbsp;·&nbsp; <strong>From $30</strong></p>
+        <p class="tile-desc">Thank your mum with Jamaican Dancehall</p>
+        <div class="tile-actions">
+          <button class="btn-sm-ghost" onclick="location.href='motherland.html'">More Info</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dancehall Royalty -->
+    <div class="tile" style="position:relative;overflow:hidden;background:transparent;">
+      <img src="images/dancehall-royalty.png" alt="Dancehall Royalty" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0;opacity:0.85;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0.3) 0%,rgba(10,10,10,0.75) 100%);z-index:1;pointer-events:none;"></div>
+      <div class="tile-inner" style="position:relative;z-index:2;">
+        <h3 class="tile-title">DANCEHALL ROYALTY</h3>
+        <p class="tile-meta">June 2026 &nbsp;·&nbsp; Tuesdays 7:30–8:30pm &nbsp;·&nbsp; <strong>From $30</strong></p>
+        <p class="tile-desc">Dancehall Royalty fi di Academy</p>
+        <div class="tile-actions">
+          <button class="btn-sm-ghost" onclick="location.href='dancehall-royalty.html'">More Info</button>
         </div>
       </div>
     </div>
 
   </div>
+
+  <!-- Mobile: Flyer Carousel -->
+  <div class="carousel-wrap">
+    <button class="carousel-arrow carousel-prev" id="carouselPrev" aria-label="Previous">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4L7 10L13 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="carousel-track" id="carouselTrack">
+
+      <a class="carousel-slide" href="march-back-in-time.html">
+        <img src="images/a84b4d3eec82.png" alt="March Back in Time" loading="lazy"/>
+        <div class="slide-overlay"></div>
+        <span class="slide-badge slide-badge-ending">
+          <span class="slide-badge-dot"></span> Ends Mar 31
+        </span>
+        <div class="slide-info">
+          <h3>MARCH BACK IN TIME</h3>
+          <p>March 2026 · $125</p>
+        </div>
+      </a>
+
+      <a class="carousel-slide" href="praise-flow.html">
+        <img src="images/praise-flow.png" alt="Praise Flow" loading="lazy"/>
+        <div class="slide-overlay"></div>
+        <div class="slide-info">
+          <h3>PRAISE FLOW</h3>
+          <p>April 2026 · Price TBA</p>
+        </div>
+      </a>
+
+      <a class="carousel-slide" href="motherland.html">
+        <img src="images/motherland.png" alt="Motherland" loading="lazy"/>
+        <div class="slide-overlay"></div>
+        <div class="slide-info">
+          <h3>MOTHERLAND</h3>
+          <p>May 2026 · Price TBA</p>
+        </div>
+      </a>
+
+      <a class="carousel-slide" href="dancehall-royalty.html">
+        <img src="images/dancehall-royalty.png" alt="Dancehall Royalty" loading="lazy"/>
+        <div class="slide-overlay"></div>
+        <div class="slide-info">
+          <h3>DANCEHALL ROYALTY</h3>
+          <p>June 2026 · Price TBA</p>
+        </div>
+      </a>
+
+    </div>
+    <button class="carousel-arrow carousel-next" id="carouselNext" aria-label="Next">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <div class="carousel-dots" id="carouselDots"></div>
+
+  <div style="text-align:center;padding:28px 0 0;">
+    <a href="past-series.html" style="display:inline-flex;align-items:center;gap:8px;font-family:'Barlow',sans-serif;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#F5C518'" onmouseout="this.style.color='rgba(255,255,255,0.35)'">
+      View Past Sessions
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7H11M8 3L12 7L8 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
 </section>
 
-<!-- CLASH + SINGLE PASS TILES -->
-<section id="clash-single" style="background:var(--dark);padding:0 80px 80px;border-top:none;">
-  <div class="series-grid" style="max-width:960px;margin:0 auto;">
-
-    <!-- CLASH tile -->
+<!-- CLASH -->
+<section id="clash-section" style="background:var(--dark);padding:0 80px 60px;border-top:none;">
+  <div style="max-width:960px;margin:0 auto;">
     <div class="tile tile-full tile-clash" id="clash" style="position:relative;overflow:hidden;min-height:320px;">
-      <div style="position:absolute;inset:0;background:rgba(0,0,0,0.55);z-index:1;pointer-events:none;"></div>
+      <img src="images/clash-inna-dancehall.png" alt="Clash Inna Dancehall" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0;opacity:0.5;" loading="lazy">
+      <div style="position:absolute;inset:0;background:rgba(0,0,0,0.45);z-index:1;pointer-events:none;"></div>
       <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 40px;min-height:320px;gap:12px;">
-        <span class="tile-badge" style="background:rgba(0,207,255,0.15);color:#00CFFF;border:1px solid rgba(0,207,255,0.4);">Coming Soon</span>
-        <h3 class="tile-title" style="font-size:2.2rem;margin:0;">CLASH: DANCEHALL BATTLE</h3>
-        <p class="tile-desc" style="margin:0;max-width:520px;">Two dancers. One floor. No rules but rhythm. The ultimate Dancehall clash experience.</p>
+        <span class="tile-badge" style="background:rgba(0,207,255,0.15);color:#00CFFF;border:1px solid rgba(0,207,255,0.4);">May 2026</span>
+        <h3 class="tile-title" style="font-size:2.2rem;margin:0;">CLASH INNA DANCEHALL WITH PASSION STUDIO</h3>
+        <p class="tile-desc" style="margin:0;max-width:520px;">Prep for the Academy, with thanks to Passion Studio</p>
         <button class="btn-sm-ghost" onclick="location.href='clash.html'" style="border-color:rgba(0,207,255,0.4);color:#00CFFF;margin-top:8px;">More Info</button>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- SINGLE-CLASS PASS tile -->
+<!-- ACADEMY -->
+<section id="academy">
+  <div class="academy-tile" style="position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.65) 100%);z-index:1;pointer-events:none;"></div>
+    <span class="coming-soon-tag" style="position:relative;z-index:2;">Launching 2026</span>
+    <div style="position:relative;z-index:2;width:100%;text-align:center;display:flex;flex-direction:column;align-items:center;">
+      <h2 class="academy-title">CHUBY DICE<br/><span>DANCEHALL ACADEMY</span></h2>
+      <p class="academy-launch">Launching June 2026</p>
+      <p class="academy-desc">
+        A new era of dancehall education. Full programs, certifications, and community building
+        — all rooted in authentic Caribbean culture.
+      </p>
+      <button class="btn-primary" onclick="location.href='academy.html'">Learn More</button>
+    </div>
+  </div>
+</section>
+
+<!-- PROFESSIONAL 1:1 COACHING -->
+<section id="coaching-section" style="background:var(--dark);padding:60px 80px;">
+  <div style="max-width:960px;margin:0 auto;">
     <div class="tile tile-full tile-single" id="single-pass" style="position:relative;overflow:hidden;min-height:320px;border:1px solid rgba(224,64,251,0.35) !important;">
-      <img src="images/5015f87ce59f.png" alt="Single Class Pass" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0;opacity:0.9;" loading="lazy">
+      <img src="images/5015f87ce59f.png" alt="Professional 1:1 Coaching" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0;opacity:0.9;" loading="lazy">
       <div style="position:absolute;inset:0;background:rgba(0,0,0,0.55);z-index:1;pointer-events:none;"></div>
       <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 40px;min-height:320px;gap:12px;">
-        <span class="tile-badge pink" style="background:var(--pink);">Chuby Dice Series</span>
-        <h3 class="tile-title" style="font-size:2.2rem;margin:0;">1:1 COACHING &amp; PROGRAMS WITH CHUBY</h3>
-        <p class="tile-desc" style="margin:0;max-width:520px;">Casual class pass to attend any one-off module from the Chuby Dice Series</p>
-        <p class="tile-meta" style="margin:0;">per module &nbsp;·&nbsp; <strong style="color:var(--yellow);font-size:1.1rem;">$30</strong></p>
-        <button class="btn-sm-yellow" style="margin-top:8px;" onclick="window.open('https://buy.stripe.com/4gMaEX2NR4BkfW2dJt4F203','_blank')">Book Now</button>
+        <h3 class="tile-title" style="font-size:2.2rem;margin:0;">PROFESSIONAL 1:1 COACHING</h3>
+        <p class="tile-desc" style="margin:0;max-width:520px;">Personalised Dancehall coaching and programs with Chuby Dice — tailored to your level and goals.</p>
+        <button class="btn-sm-ghost" onclick="location.href='coaching.html'" style="border-color:rgba(224,64,251,0.4);color:var(--pink);margin-top:8px;">More Info</button>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -1427,23 +1630,6 @@
         Caribbean culture.
       </p>
       <button class="btn-dark" onclick="location.href='about.html'">More</button>
-    </div>
-  </div>
-</section>
-
-<!-- ACADEMY -->
-<section id="academy">
-  <div class="academy-tile" style="position:relative;overflow:hidden;">
-    <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.65) 100%);z-index:1;pointer-events:none;"></div>
-    <span class="coming-soon-tag" style="position:relative;z-index:2;">Coming Soon</span>
-    <div style="position:relative;z-index:2;width:100%;text-align:center;display:flex;flex-direction:column;align-items:center;">
-      <h2 class="academy-title">CHUBY DICE<br/><span>DANCEHALL ACADEMY</span></h2>
-      <p class="academy-launch">Launching June 2026</p>
-      <p class="academy-desc">
-        A new era of dancehall education. Full programs, certifications, and community building
-        — all rooted in authentic Caribbean culture.
-      </p>
-      <button class="btn-primary" onclick="location.href='academy.html'">Learn More</button>
     </div>
   </div>
 </section>
@@ -1756,6 +1942,61 @@
     videos[currentVidIdx].style.opacity = '0.75';
     tryPlay(videos[currentVidIdx]);
   }, 5000);
+})();
+</script>
+
+<!-- Flyer Carousel -->
+<script>
+(function() {
+  var track = document.getElementById('carouselTrack');
+  var prev = document.getElementById('carouselPrev');
+  var next = document.getElementById('carouselNext');
+  var dotsWrap = document.getElementById('carouselDots');
+  if (!track || !prev || !next) return;
+
+  var slides = track.querySelectorAll('.carousel-slide');
+  var slideCount = slides.length;
+  if (slideCount === 0) return;
+
+  // Build dots
+  if (dotsWrap) {
+    for (var i = 0; i < slideCount; i++) {
+      var dot = document.createElement('button');
+      dot.className = 'c-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+      dot.dataset.index = i;
+      dot.onclick = function() {
+        var idx = parseInt(this.dataset.index);
+        scrollToSlide(idx);
+      };
+      dotsWrap.appendChild(dot);
+    }
+  }
+
+  function getSlideWidth() {
+    return slides[0].offsetWidth + 20; // width + gap
+  }
+
+  function scrollToSlide(idx) {
+    track.scrollTo({ left: idx * getSlideWidth(), behavior: 'smooth' });
+  }
+
+  prev.onclick = function() {
+    track.scrollBy({ left: -getSlideWidth(), behavior: 'smooth' });
+  };
+  next.onclick = function() {
+    track.scrollBy({ left: getSlideWidth(), behavior: 'smooth' });
+  };
+
+  // Update dots on scroll
+  track.addEventListener('scroll', function() {
+    var scrollLeft = track.scrollLeft;
+    var idx = Math.round(scrollLeft / getSlideWidth());
+    var dots = dotsWrap ? dotsWrap.querySelectorAll('.c-dot') : [];
+    for (var i = 0; i < dots.length; i++) {
+      dots[i].classList.toggle('active', i === idx);
+    }
+  });
 })();
 </script>
 
