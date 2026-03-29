@@ -1850,13 +1850,6 @@
 (function () {
   var v = document.getElementById('heroVideo');
   if (!v) return;
-  var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-  if (conn && (conn.saveData || conn.effectiveType === '2g' || conn.effectiveType === 'slow-2g')) {
-    v.style.display = 'none';
-    return;
-  }
-  // On error hide the video — the CSS background image on #hero remains visible
-  v.addEventListener('error', function () { v.style.display = 'none'; });
 
   var recoveryTimer = null;
   var lastTime = -1;
@@ -1865,7 +1858,6 @@
   function scheduleRecovery(delay) {
     clearTimeout(recoveryTimer);
     recoveryTimer = setTimeout(function () {
-      // Try a tiny seek first to unstick the buffer without a full reload
       if (v.readyState >= 1 && isFinite(v.duration) && v.duration > 0) {
         v.currentTime = v.currentTime + 0.001;
         v.play().catch(function () {});
@@ -1876,27 +1868,23 @@
     }, delay);
   }
 
-  // waiting fires whenever playback stalls waiting for data — the main freeze cause
   v.addEventListener('waiting', function () { scheduleRecovery(1500); });
   v.addEventListener('stalled', function () { scheduleRecovery(2000); });
   v.addEventListener('playing', function () { clearTimeout(recoveryTimer); });
 
-  // Watchdog: if currentTime stops advancing for 4 s while the video should be playing, recover
   function startWatchdog() {
     clearInterval(watchdogTimer);
     watchdogTimer = setInterval(function () {
       if (!v.paused && !v.ended && v.readyState > 2) {
-        if (v.currentTime === lastTime) {
-          scheduleRecovery(0);
-        }
+        if (v.currentTime === lastTime) { scheduleRecovery(0); }
         lastTime = v.currentTime;
       }
     }, 4000);
   }
 
   v.addEventListener('playing', startWatchdog);
-  v.addEventListener('pause',   function () { clearInterval(watchdogTimer); });
-  v.addEventListener('ended',   function () { clearInterval(watchdogTimer); });
+  v.addEventListener('pause', function () { clearInterval(watchdogTimer); });
+  v.addEventListener('ended', function () { clearInterval(watchdogTimer); });
 })();
 </script>
 
