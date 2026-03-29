@@ -346,12 +346,12 @@
   .scroll-hint svg { animation: bounceArrow 1.5s ease-in-out infinite; }
 
   /* ─── SECTION BASE ─── */
-  section { padding: 80px 80px; }
+  section { padding: 80px 80px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
 
   /* Defer rendering of off-screen sections for faster initial paint */
   #series, #artist, #academy, #vibes, #connect {
     content-visibility: auto;
-    contain-intrinsic-size: 0 600px;
+    contain-intrinsic-size: 0 100vh;
   }
 
   .section-label {
@@ -1189,7 +1189,7 @@
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 768px) {
-    section { padding: 48px 16px; }
+    section { padding: 48px 16px; min-height: 100vh; }
     .artist-container { grid-template-columns: 1fr; gap: 40px; }
     #series { padding-left: 0; padding-right: 0; }
     #series .series-header { padding: 0 16px; }
