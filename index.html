@@ -20,6 +20,7 @@
 <link rel="icon" type="image/x-icon" href="images/09c9ec4a0ce4.ico"/>
 <link rel="icon" type="image/png" sizes="32x32" href="images/8cbe784dd268.png"/>
 <link rel="apple-touch-icon" sizes="180x180" href="images/8cbe784dd268.png"/>
+<link rel="preload" as="image" href="images/450034373c45.jpg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700;900&family=Barlow+Condensed:wght@700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
@@ -359,8 +360,163 @@
 
   /* ─── SERIES SECTION ─── */
   #series {
-    background: var(--dark);
-    border-top: 1px solid var(--border);
+    background: #0d2414;
+    border-top: none;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ─── TILTED SECTION DIVIDERS ─── */
+  .section-divider {
+    position: relative;
+    height: 80px;
+    overflow: hidden;
+    z-index: 2;
+  }
+
+  /* Black → Green */
+  .section-divider-bg {
+    background: #0d2414;
+  }
+  .section-divider-bg::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -5%;
+    width: 110%; height: 60%;
+    background: var(--black);
+    transform-origin: bottom left;
+    transform: skewY(-2.5deg);
+  }
+
+  /* Green → Gold */
+  .section-divider-gg {
+    background: #1e1a08;
+  }
+  .section-divider-gg::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -5%;
+    width: 110%; height: 60%;
+    background: #0d2414;
+    transform-origin: bottom right;
+    transform: skewY(2.5deg);
+  }
+
+  /* Gold → Green */
+  .section-divider-gb {
+    background: #0d2414;
+  }
+  .section-divider-gb::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -5%;
+    width: 110%; height: 60%;
+    background: #1e1a08;
+    transform-origin: bottom left;
+    transform: skewY(-2.5deg);
+  }
+
+  /* Green → Gold (alt direction) */
+  .section-divider-gga {
+    background: #1e1a08;
+  }
+  .section-divider-gga::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -5%;
+    width: 110%; height: 60%;
+    background: #0d2414;
+    transform-origin: bottom right;
+    transform: skewY(2.5deg);
+  }
+
+  /* Gold → Green (alt) */
+  .section-divider-gba {
+    background: #0c1c10;
+  }
+  .section-divider-gba::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -5%;
+    width: 110%; height: 60%;
+    background: #1e1a08;
+    transform-origin: bottom left;
+    transform: skewY(-2.5deg);
+  }
+
+  /* Green → Gold v2 */
+  .section-divider-gg2 {
+    background: #1e1a08;
+  }
+  .section-divider-gg2::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -5%;
+    width: 110%; height: 60%;
+    background: #0c1c10;
+    transform-origin: bottom right;
+    transform: skewY(2.5deg);
+  }
+
+  /* Gold → Green v2 */
+  .section-divider-gb2 {
+    background: #0d2414;
+  }
+  .section-divider-gb2::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -5%;
+    width: 110%; height: 60%;
+    background: #1e1a08;
+    transform-origin: bottom left;
+    transform: skewY(-2.5deg);
+  }
+
+  /* Accent line along the diagonal */
+  .section-divider::after {
+    content: '';
+    position: absolute;
+    top: 48%; left: -5%;
+    width: 110%; height: 2px;
+    background: linear-gradient(90deg, transparent 0%, rgba(245,197,24,0.15) 20%, rgba(245,197,24,0.3) 50%, rgba(245,197,24,0.15) 80%, transparent 100%);
+    z-index: 1;
+  }
+  .section-divider-bg::after,
+  .section-divider-gb::after,
+  .section-divider-gba::after,
+  .section-divider-gb2::after {
+    transform: skewY(-2.5deg);
+  }
+  .section-divider-gg::after,
+  .section-divider-gga::after,
+  .section-divider-gg2::after {
+    transform: skewY(2.5deg);
+  }
+
+  /* ─── FLOATING JAMAICAN FLAGS ─── */
+  .flags-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .flag-particle {
+    position: absolute;
+    bottom: -40px;
+    opacity: 0;
+    animation: floatUp linear infinite;
+  }
+  .flag-particle svg {
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+  }
+  @keyframes floatUp {
+    0% { opacity: 0; transform: translateY(0) rotate(0deg) scale(1); }
+    8% { opacity: 0.85; }
+    40% { opacity: 0.7; }
+    70% { opacity: 0.5; }
+    90% { opacity: 0.25; }
+    100% { opacity: 0; transform: translateY(-100vh) rotate(20deg) scale(0.7); }
   }
 
   .series-header {
@@ -553,8 +709,8 @@
 
   /* ─── MEET THE ARTIST ─── */
   #artist {
-    background: var(--black);
-    border-top: 1px solid var(--border);
+    background: #0c1c10;
+    border-top: none;
     margin-top: 0;
     position: relative;
     overflow: hidden;
@@ -666,8 +822,8 @@
 
   /* ─── ACADEMY ─── */
   #academy {
-    background: var(--black);
-    border-top: 1px solid var(--border);
+    background: #0d2414;
+    border-top: none;
   }
 
   .academy-tile {
@@ -731,8 +887,8 @@
 
   /* ─── VIBES ─── */
   #vibes {
-    background: var(--dark);
-    border-top: 1px solid var(--border);
+    background: linear-gradient(180deg, #1a1508 0%, #1e1a0a 50%, #1a1508 100%);
+    border-top: none;
   }
 
   .vibes-container {
@@ -807,8 +963,8 @@
 
   /* ─── CONNECT ─── */
   #connect {
-    background: var(--black);
-    border-top: 1px solid var(--border);
+    background: #0d2414;
+    border-top: none;
     text-align: center;
   }
 
@@ -1409,9 +1565,13 @@
 
 <!-- HERO -->
 <section id="hero">
-  <video id="heroVideo" autoplay muted loop playsinline poster="images/hero-poster.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:0;opacity:0.75;" preload="auto">
+  <video id="heroVideo" autoplay muted loop playsinline poster="images/450034373c45.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:0;opacity:0.75;" preload="auto">
     <source src="videos/hero-bg.mp4" type="video/mp4">
   </video>
+  <video class="heroVideoAlt" muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:0;opacity:0;" preload="none"><source src="videos/2.mp4" type="video/mp4"></video>
+  <video class="heroVideoAlt" muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:0;opacity:0;" preload="none"><source src="videos/3.mp4" type="video/mp4"></video>
+  <video class="heroVideoAlt" muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:0;opacity:0;" preload="none"><source src="videos/4.mp4" type="video/mp4"></video>
+  <video class="heroVideoAlt" muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:0;opacity:0;" preload="none"><source src="videos/5.mp4" type="video/mp4"></video>
   <h1 class="hero-title">
     <span class="c1">C</span><span class="c2">HUBY</span> <span class="c3">D</span><span class="c4">ICE</span>
   </h1>
@@ -1430,8 +1590,14 @@
   </div>
 </section>
 
+<!-- DIVIDER -->
+<div class="section-divider section-divider-bg"></div>
+
 <!-- SERIES -->
 <section id="series">
+  <!-- Floating Jamaican Flags -->
+  <div class="flags-container" id="flagsContainer"></div>
+
   <div class="series-header">
     <h2 class="section-title">CHUBY DICE <span>SERIES</span></h2>
   </div>
@@ -1441,7 +1607,7 @@
 
     <!-- March Back in Time -->
     <div class="tile" style="position:relative;overflow:hidden;">
-      <img src="images/a84b4d3eec82.png" alt="March Back in Time" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" loading="lazy" decoding="async">
+      <img src="images/a84b4d3eec82.png" alt="March Back in Time" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" loading="lazy">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0.3) 0%,rgba(10,10,10,0.75) 100%);z-index:1;pointer-events:none;"></div>
       <span style="position:absolute;top:14px;right:14px;z-index:10;display:inline-flex;align-items:center;gap:6px;background:rgba(255,70,70,0.12);border:1px solid rgba(255,70,70,0.25);border-radius:50px;padding:5px 12px;font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#ff6b6b;">
         <span style="width:5px;height:5px;border-radius:50%;background:#ff6b6b;animation:pulse-dot 1.5s ease-in-out infinite;"></span>
@@ -1460,7 +1626,7 @@
 
     <!-- Praise Flow -->
     <div class="tile" style="position:relative;overflow:hidden;background:transparent;">
-      <img src="images/praise-flow.png" alt="Praise Flow" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0;opacity:0.85;" loading="lazy" decoding="async">
+      <img src="images/praise-flow.png" alt="Praise Flow" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0;opacity:0.85;" loading="lazy">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0.3) 0%,rgba(10,10,10,0.75) 100%);z-index:1;pointer-events:none;"></div>
       <div class="tile-inner" style="position:relative;z-index:2;">
         <h3 class="tile-title">PRAISE FLOW</h3>
@@ -1474,7 +1640,7 @@
 
     <!-- Motherland -->
     <div class="tile" style="position:relative;overflow:hidden;background:transparent;">
-      <img src="images/motherland.png" alt="Motherland" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0;opacity:0.85;" loading="lazy" decoding="async">
+      <img src="images/motherland.png" alt="Motherland" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0;opacity:0.85;" loading="lazy">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0.3) 0%,rgba(10,10,10,0.75) 100%);z-index:1;pointer-events:none;"></div>
       <div class="tile-inner" style="position:relative;z-index:2;">
         <h3 class="tile-title">MOTHERLAND</h3>
@@ -1488,7 +1654,7 @@
 
     <!-- Dancehall Royalty -->
     <div class="tile" style="position:relative;overflow:hidden;background:transparent;">
-      <img src="images/dancehall-royalty.png" alt="Dancehall Royalty" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0;opacity:0.85;" loading="lazy" decoding="async">
+      <img src="images/dancehall-royalty.png" alt="Dancehall Royalty" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0;opacity:0.85;" loading="lazy">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0.3) 0%,rgba(10,10,10,0.75) 100%);z-index:1;pointer-events:none;"></div>
       <div class="tile-inner" style="position:relative;z-index:2;">
         <h3 class="tile-title">DANCEHALL ROYALTY</h3>
@@ -1510,7 +1676,7 @@
     <div class="carousel-track" id="carouselTrack">
 
       <a class="carousel-slide" href="march-back-in-time.html">
-        <img src="images/a84b4d3eec82.png" alt="March Back in Time" loading="lazy" decoding="async"/>
+        <img src="images/a84b4d3eec82.png" alt="March Back in Time" loading="lazy"/>
         <div class="slide-overlay"></div>
         <span class="slide-badge slide-badge-ending">
           <span class="slide-badge-dot"></span> Ends Mar 31
@@ -1522,7 +1688,7 @@
       </a>
 
       <a class="carousel-slide" href="praise-flow.html">
-        <img src="images/praise-flow.png" alt="Praise Flow" loading="lazy" decoding="async"/>
+        <img src="images/praise-flow.png" alt="Praise Flow" loading="lazy"/>
         <div class="slide-overlay"></div>
         <div class="slide-info">
           <h3>PRAISE FLOW</h3>
@@ -1531,7 +1697,7 @@
       </a>
 
       <a class="carousel-slide" href="motherland.html">
-        <img src="images/motherland.png" alt="Motherland" loading="lazy" decoding="async"/>
+        <img src="images/motherland.png" alt="Motherland" loading="lazy"/>
         <div class="slide-overlay"></div>
         <div class="slide-info">
           <h3>MOTHERLAND</h3>
@@ -1540,7 +1706,7 @@
       </a>
 
       <a class="carousel-slide" href="dancehall-royalty.html">
-        <img src="images/dancehall-royalty.png" alt="Dancehall Royalty" loading="lazy" decoding="async"/>
+        <img src="images/dancehall-royalty.png" alt="Dancehall Royalty" loading="lazy"/>
         <div class="slide-overlay"></div>
         <div class="slide-info">
           <h3>DANCEHALL ROYALTY</h3>
@@ -1564,11 +1730,14 @@
   </div>
 </section>
 
+<!-- DIVIDER -->
+<div class="section-divider section-divider-gg"></div>
+
 <!-- CLASH -->
-<section id="clash-section" style="background:var(--dark);padding:0 80px 60px;border-top:none;">
+<section id="clash-section" style="background:#1e1a08;padding:0 80px 60px;border-top:none;">
   <div style="max-width:960px;margin:0 auto;">
     <div class="tile tile-full tile-clash" id="clash" style="position:relative;overflow:hidden;min-height:320px;">
-      <img src="images/clash-inna-dancehall.png" alt="Clash Inna Dancehall" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0;opacity:0.5;" loading="lazy" decoding="async">
+      <img src="images/clash-inna-dancehall.png" alt="Clash Inna Dancehall" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0;opacity:0.5;" loading="lazy">
       <div style="position:absolute;inset:0;background:rgba(0,0,0,0.45);z-index:1;pointer-events:none;"></div>
       <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 40px;min-height:320px;gap:12px;">
         <span class="tile-badge" style="background:rgba(0,207,255,0.15);color:#00CFFF;border:1px solid rgba(0,207,255,0.4);">May 2026</span>
@@ -1579,6 +1748,9 @@
     </div>
   </div>
 </section>
+
+<!-- DIVIDER -->
+<div class="section-divider section-divider-gb"></div>
 
 <!-- ACADEMY -->
 <section id="academy">
@@ -1597,11 +1769,14 @@
   </div>
 </section>
 
+<!-- DIVIDER -->
+<div class="section-divider section-divider-gga"></div>
+
 <!-- PROFESSIONAL 1:1 COACHING -->
-<section id="coaching-section" style="background:var(--dark);padding:60px 80px;">
+<section id="coaching-section" style="background:#1e1a08;padding:60px 80px;">
   <div style="max-width:960px;margin:0 auto;">
     <div class="tile tile-full tile-single" id="single-pass" style="position:relative;overflow:hidden;min-height:320px;border:1px solid rgba(224,64,251,0.35) !important;">
-      <img src="images/5015f87ce59f.png" alt="Professional 1:1 Coaching" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0;opacity:0.9;" loading="lazy" decoding="async">
+      <img src="images/5015f87ce59f.png" alt="Professional 1:1 Coaching" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0;opacity:0.9;" loading="lazy">
       <div style="position:absolute;inset:0;background:rgba(0,0,0,0.55);z-index:1;pointer-events:none;"></div>
       <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 40px;min-height:320px;gap:12px;">
         <h3 class="tile-title" style="font-size:2.2rem;margin:0;">PROFESSIONAL 1:1 COACHING</h3>
@@ -1611,6 +1786,9 @@
     </div>
   </div>
 </section>
+
+<!-- DIVIDER -->
+<div class="section-divider section-divider-gba"></div>
 
 <!-- MEET THE ARTIST -->
 <section id="artist">
@@ -1629,6 +1807,9 @@
   </div>
 </section>
 
+<!-- DIVIDER -->
+<div class="section-divider section-divider-gg2"></div>
+
 <!-- DANCEHALL VIBES -->
 <section id="vibes">
   <div class="vibes-container">
@@ -1636,7 +1817,7 @@
     <h2 class="section-title">DANCEHALL VIBES –<br/><span>WHAT YOU'LL MOVE TO</span></h2>
     <div class="playlist-placeholder">
       <a href="https://music.youtube.com/playlist?list=PLrAdqr-L9aFuh7nhS0tQS6kzWIUGm4aBL&si=9x9uK9TnQ-uZxcIW" target="_blank" style="display:block;cursor:pointer;">
-        <img src="images/2104822c8d2d.png" alt="Dancehall Vibes Playlist" style="width:180px;height:180px;border-radius:14px;object-fit:cover;display:block;transition:transform 0.2s;box-shadow:0 8px 32px rgba(0,0,0,0.5);" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" loading="lazy" decoding="async">
+        <img src="images/2104822c8d2d.png" alt="Dancehall Vibes Playlist" style="width:180px;height:180px;border-radius:14px;object-fit:cover;display:block;transition:transform 0.2s;box-shadow:0 8px 32px rgba(0,0,0,0.5);" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" loading="lazy">
       </a>
       <p style="font-size:0.85rem;color:rgba(255,255,255,0.5);letter-spacing:0.05em;">Dancehall Vibes · YouTube Music</p>
     </div>
@@ -1646,6 +1827,9 @@
     </button>
   </div>
 </section>
+
+<!-- DIVIDER -->
+<div class="section-divider section-divider-gb2"></div>
 
 <!-- CONNECT -->
 <section id="connect">
@@ -1657,7 +1841,7 @@
       freestyle clips, and behind-the-scenes energy. 🎬🔥
     </p>
     <div class="insta-card" onclick="window.open('https://www.instagram.com/chuby_dice','_blank')" style="cursor:pointer;">
-      <div class="insta-avatar" style="background:none;padding:0;overflow:hidden;"><img src="images/fd332cb6b99b.jpg" alt="Chuby Dice" style="width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:50%;display:block;" loading="lazy" decoding="async"></div>
+      <div class="insta-avatar" style="background:none;padding:0;overflow:hidden;"><img src="images/fd332cb6b99b.jpg" alt="Chuby Dice" style="width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:50%;display:block;" loading="lazy"></div>
       <div class="insta-handle">
         @chuby_dice
         <span class="verified">✓</span>
@@ -1740,7 +1924,7 @@
   // Video autoplay is handled by the crossfade script below
 </script>
 
-<script src="/chatbot.js" defer></script>
+<script src="/chatbot.js"></script>
 
 <!-- 3D card tilt + sheen (desktop only) -->
 <script>
@@ -1845,46 +2029,135 @@
 })();
 </script>
 
-<!-- Hero video stall recovery -->
+<!-- Hero video crossfade -->
 <script>
 (function () {
-  var v = document.getElementById('heroVideo');
-  if (!v) return;
+  var videos = Array.prototype.slice.call(document.querySelectorAll('#hero video'));
+  if (!videos.length) return;
 
-  var recoveryTimer = null;
-  var lastTime = -1;
-  var watchdogTimer = null;
+  var isMobile = window.innerWidth < 768 || ('ontouchstart' in window);
 
-  function scheduleRecovery(delay) {
-    clearTimeout(recoveryTimer);
-    recoveryTimer = setTimeout(function () {
-      if (v.readyState >= 1 && isFinite(v.duration) && v.duration > 0) {
-        v.currentTime = v.currentTime + 0.001;
-        v.play().catch(function () {});
-      } else {
+
+  function tryPlay(v) {
+    if (v.paused) {
+      v.play().catch(function () {});
+    }
+  }
+
+  function setupVideoWithRecovery(v) {
+    var stallTimer = null;
+    function onStall() {
+      clearTimeout(stallTimer);
+      stallTimer = setTimeout(function () {
         v.load();
-        v.play().catch(function () {});
-      }
-    }, delay);
+        tryPlay(v);
+      }, 2000);
+    }
+    function onPlaying() {
+      clearTimeout(stallTimer);
+    }
+    v.addEventListener('canplay', function () { tryPlay(v); }, { once: true });
+    v.addEventListener('canplaythrough', function () { clearTimeout(stallTimer); }, { once: true });
+    v.addEventListener('stalled', onStall);
+    v.addEventListener('waiting', onStall);
+    v.addEventListener('playing', onPlaying);
+    v.addEventListener('error', function () {
+      setTimeout(function () { v.load(); tryPlay(v); }, 2000);
+    });
   }
 
-  v.addEventListener('waiting', function () { scheduleRecovery(1500); });
-  v.addEventListener('stalled', function () { scheduleRecovery(2000); });
-  v.addEventListener('playing', function () { clearTimeout(recoveryTimer); });
+  // Aggressive preload strategy: load all videos immediately
+  var loadedVideos = new Set();
 
-  function startWatchdog() {
-    clearInterval(watchdogTimer);
-    watchdogTimer = setInterval(function () {
-      if (!v.paused && !v.ended && v.readyState > 2) {
-        if (v.currentTime === lastTime) { scheduleRecovery(0); }
-        lastTime = v.currentTime;
-      }
-    }, 4000);
+  function loadVideo(idx) {
+    if (loadedVideos.has(idx) || idx >= videos.length) return;
+    loadedVideos.add(idx);
+    videos[idx].preload = 'auto';
+    setupVideoWithRecovery(videos[idx]);
+    videos[idx].load();
   }
 
-  v.addEventListener('playing', startWatchdog);
-  v.addEventListener('pause', function () { clearInterval(watchdogTimer); });
-  v.addEventListener('ended', function () { clearInterval(watchdogTimer); });
+  // Mobile: start all videos loading immediately for smooth rotation
+  if (isMobile) {
+    // Load all 5 videos in background immediately (non-blocking)
+    for (var i = 0; i < videos.length; i++) {
+      setTimeout(function (idx) {
+        loadVideo(idx);
+      }.bind(null, i), i * 200); // Stagger by 200ms to avoid HTTP flooding
+    }
+  } else {
+    // Desktop: intelligent sequential loading
+    loadVideo(0);
+    setTimeout(function () { loadVideo(1); }, 500);
+    setTimeout(function () { loadVideo(2); }, 1000);
+  }
+
+  // Start playback immediately
+  tryPlay(videos[0]);
+
+  if (videos.length < 2) return;
+
+  // Rotation every 5 seconds with pre-buffering
+  var currentVidIdx = 0;
+  var rotationInterval = setInterval(function () {
+    var next = (currentVidIdx + 1) % videos.length;
+    var nextNext = (next + 1) % videos.length;
+    var nextNextNext = (nextNext + 1) % videos.length;
+
+    // Ensure next videos are preloaded before transition
+    loadVideo(nextNext);
+    loadVideo(nextNextNext);
+
+    videos[currentVidIdx].style.opacity = '0';
+    videos[currentVidIdx].pause();
+    
+    currentVidIdx = next;
+    videos[currentVidIdx].style.opacity = '0.75';
+    tryPlay(videos[currentVidIdx]);
+  }, 5000);
+})();
+</script>
+
+<!-- Flyer Carousel -->
+<script>
+// Floating Jamaican Flag Particles
+(function() {
+  var container = document.getElementById('flagsContainer');
+  if (!container) return;
+
+  var flagSVG = '<svg width="36" height="24" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+    '<rect width="18" height="12" fill="#009B3A"/>' +
+    '<polygon points="0,0 9,6 0,12" fill="#000"/>' +
+    '<polygon points="18,0 9,6 18,12" fill="#000"/>' +
+    '<polygon points="0,0 9,6 18,0" fill="#FED100"/>' +
+    '<polygon points="0,12 9,6 18,12" fill="#FED100"/>' +
+    '<line x1="0" y1="0" x2="18" y2="12" stroke="#FED100" stroke-width="1.5"/>' +
+    '<line x1="18" y1="0" x2="0" y2="12" stroke="#FED100" stroke-width="1.5"/>' +
+    '</svg>';
+
+  function createFlag() {
+    var flag = document.createElement('div');
+    flag.className = 'flag-particle';
+    flag.innerHTML = flagSVG;
+    var size = 0.8 + Math.random() * 1.2;
+    flag.style.left = (Math.random() * 100) + '%';
+    flag.style.transform = 'scale(' + size + ')';
+    flag.style.animationDuration = (10 + Math.random() * 10) + 's';
+    flag.style.animationDelay = (Math.random() * 4) + 's';
+    container.appendChild(flag);
+
+    setTimeout(function() {
+      if (flag.parentNode) flag.parentNode.removeChild(flag);
+    }, 24000);
+  }
+
+  // Create initial batch
+  for (var i = 0; i < 12; i++) {
+    setTimeout(createFlag, i * 600);
+  }
+
+  // Keep creating flags
+  setInterval(createFlag, 1800);
 })();
 </script>
 
