@@ -1,0 +1,335 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+:root {
+  --void: #04030a;
+  --deep: #080614;
+  --surface: #0d0a1a;
+  --surface-2: #120f24;
+  --card: rgba(17, 14, 31, 0.9);
+  --card-hover: rgba(22, 18, 42, 0.98);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(167, 139, 250, 0.22);
+
+  --purple-950: #1e0a3c;
+  --purple-800: #3b1a78;
+  --purple-600: #7c3aed;
+  --purple-400: #a78bfa;
+  --purple-200: #ddd6fe;
+
+  --gold: #f5c518;
+  --cyan: #06d6a0;
+  --pink: #f472b6;
+  --orange: #fb923c;
+
+  --white: #ffffff;
+  --black: #04030a;
+  --dark: #080614;
+  --yellow: var(--gold);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(220, 210, 245, 0.84);
+  --text-muted: rgba(180, 165, 220, 0.58);
+
+  --glow-purple: 0 0 60px rgba(124, 58, 237, 0.24);
+  --glow-gold: 0 0 36px rgba(245, 197, 24, 0.24);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif !important;
+  background:
+    radial-gradient(circle at top, rgba(124, 58, 237, 0.18), transparent 34%),
+    linear-gradient(180deg, var(--deep) 0%, var(--void) 100%) !important;
+  color: var(--text-primary) !important;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(245, 197, 24, 0.08), transparent 20%),
+    radial-gradient(circle at 85% 12%, rgba(167, 139, 250, 0.12), transparent 26%);
+  opacity: 0.8;
+  z-index: -1;
+}
+
+h1, h2, h3, h4, h5, h6,
+.nav-logo, .footer-logo,
+.hero-title, .page-hero-title, .section-title,
+.tile-title, .brings-title, .wyw-title,
+.hero-content h1, .hero-content h2, .hero-content h3 {
+  font-family: 'Outfit', sans-serif !important;
+}
+
+p, li, a, button, input, textarea, label, small, span,
+.hero-desc, .page-hero-desc, .hero-body p {
+  font-family: 'DM Sans', sans-serif;
+}
+
+nav {
+  background: rgba(4, 3, 10, 0.82) !important;
+  backdrop-filter: blur(24px) saturate(1.4) !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+
+.nav-logo,
+.footer-logo {
+  color: var(--text-primary) !important;
+  letter-spacing: 0.06em !important;
+}
+
+.nav-logo span,
+.footer-logo span,
+.nav-logo .accent,
+.footer-logo .accent,
+.footer-address strong,
+.footer-addr strong {
+  color: var(--gold) !important;
+}
+
+.menu-btn,
+.menu-book,
+.book-btn,
+.btn-book-class,
+.btn-stay-updated,
+.btn-primary,
+.btn-outline,
+.btn-sm-yellow,
+.btn-sm-ghost,
+button,
+[role='button'] {
+  font-family: 'Outfit', sans-serif !important;
+}
+
+.book-btn,
+.menu-book,
+.btn-book-class,
+.btn-primary,
+.btn-sm-yellow {
+  background: linear-gradient(135deg, var(--purple-600), var(--purple-800)) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid rgba(167, 139, 250, 0.24) !important;
+  box-shadow: none !important;
+}
+
+.book-btn:hover,
+.menu-book:hover,
+.btn-book-class:hover,
+.btn-primary:hover,
+.btn-sm-yellow:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--glow-purple) !important;
+}
+
+.btn-outline,
+.btn-sm-ghost,
+.btn-stay-updated {
+  background: rgba(255, 255, 255, 0.04) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border) !important;
+}
+
+.btn-outline:hover,
+.btn-sm-ghost:hover,
+.btn-stay-updated:hover {
+  border-color: var(--border-strong) !important;
+  background: rgba(167, 139, 250, 0.08) !important;
+}
+
+.menu-btn,
+.menu-overlay a,
+.footer-links a,
+.back-link,
+.hero-eyebrow,
+.page-hero-label,
+.brings-label,
+.stat-label,
+.footer-links h4 {
+  color: var(--text-secondary) !important;
+}
+
+.menu-overlay {
+  background: rgba(11, 8, 24, 0.92) !important;
+  border: 1px solid rgba(124, 58, 237, 0.22) !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), var(--glow-purple) !important;
+}
+
+.menu-overlay a:hover,
+.menu-overlay a.active,
+.footer-links a:hover,
+.back-link:hover {
+  color: var(--gold) !important;
+}
+
+.menu-divider,
+.footer-bottom,
+.stats-strip,
+.while-you-wait,
+.brings-section,
+footer {
+  border-color: var(--border) !important;
+}
+
+.hero,
+.page-hero,
+.brings-section,
+.while-you-wait,
+.stats-strip,
+footer,
+section,
+main {
+  background-color: transparent !important;
+}
+
+.hero::before,
+.page-hero::before {
+  background:
+    radial-gradient(ellipse 55% 45% at 50% 20%, rgba(124, 58, 237, 0.18), transparent 70%),
+    radial-gradient(ellipse 35% 28% at 50% 26%, rgba(245, 197, 24, 0.08), transparent 75%) !important;
+}
+
+.hero-bg-text {
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.09) 0%, rgba(245, 197, 24, 0.06) 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+.hero-title,
+.page-hero-title,
+.brings-title,
+.wyw-title,
+.stat-num,
+.series-promo-overlay h3 {
+  color: var(--text-primary) !important;
+  background: linear-gradient(135deg, #ffffff 0%, var(--purple-200) 50%, var(--gold) 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.hero-title span,
+.page-hero-title span,
+.brings-title span,
+.wyw-sub,
+.coming-soon-pill,
+.tile-badge,
+.tile-meta strong,
+.section-label,
+.connect-label,
+.artist-eyebrow,
+.academy-eyebrow {
+  color: var(--gold) !important;
+}
+
+.coming-soon-pill,
+.tile-badge,
+.hero-eyebrow,
+.page-hero-label,
+.brings-label,
+.section-label,
+.connect-label,
+.artist-eyebrow,
+.academy-eyebrow,
+.stat-label,
+.footer-links h4 {
+  text-transform: uppercase;
+  letter-spacing: 0.18em !important;
+}
+
+.coming-soon-pill,
+.tile-badge {
+  background: rgba(245, 197, 24, 0.08) !important;
+  border: 1px solid rgba(245, 197, 24, 0.18) !important;
+}
+
+.hero-desc,
+.page-hero-desc,
+.hero-body p,
+.brings-card p,
+.tile-desc,
+.tile-meta,
+.footer-tagline,
+.footer-address,
+.footer-addr,
+.footer-bottom p,
+.footer-bottom-links a {
+  color: var(--text-muted) !important;
+}
+
+.series-grid .tile,
+.stacked-card,
+.series-promo,
+.brings-card,
+.contact-card,
+.contact-method,
+.option-card,
+.card,
+.story-card,
+.info-card,
+.session-card,
+.offer-card,
+.pricing-card,
+.stat,
+.flyer-card,
+.academy-card {
+  background: linear-gradient(180deg, rgba(17, 14, 31, 0.88), rgba(10, 8, 22, 0.98)) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22);
+}
+
+.series-grid .tile:hover,
+.stacked-card:hover,
+.series-promo:hover,
+.brings-card:hover,
+.contact-card:hover,
+.contact-method:hover,
+.option-card:hover,
+.card:hover,
+.story-card:hover,
+.info-card:hover,
+.session-card:hover,
+.offer-card:hover,
+.pricing-card:hover,
+.flyer-card:hover,
+.academy-card:hover {
+  background: linear-gradient(180deg, rgba(22, 18, 42, 0.96), rgba(12, 10, 26, 1)) !important;
+  border-color: var(--border-strong) !important;
+}
+
+.series-promo,
+.series-grid .tile,
+.stacked-card {
+  border-radius: 20px !important;
+}
+
+.social-icon {
+  color: var(--text-secondary) !important;
+  border-color: var(--border) !important;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.social-icon:hover {
+  color: var(--gold) !important;
+  border-color: rgba(245, 197, 24, 0.25) !important;
+  box-shadow: var(--glow-gold);
+}
+
+a {
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+@media (max-width: 768px) {
+  nav {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .menu-overlay {
+    right: 16px !important;
+    width: min(320px, calc(100vw - 32px)) !important;
+  }
+}
