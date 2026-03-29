@@ -305,7 +305,7 @@
 
 <!-- ─── HERO ─── -->
 <section class="hero">
-  <img src="images/motherland.png" alt="Motherland" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0;opacity:0.75;" decoding="async">
+  <img src="images/motherland-2026.jpeg" alt="Motherland" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0;opacity:0.75;" decoding="async">
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1 class="hero-title">MOTHERLAND</h1>
@@ -354,46 +354,46 @@
     <p>Choose your pass for Motherland — every Tuesday, May 2026.</p>
 
     <div class="pricing-options" id="pricingOptions">
-      <div class="price-option selected" data-price="30" onclick="selectPrice(this)">
+      <div class="price-option selected" data-price="30" data-display-price="A$30.00" data-link="https://buy.stripe.com/4gMbJ1ewz9VE6ls5cX4F20b" onclick="selectPrice(this)">
         <div class="price-option-left">
           <div class="price-radio"><div class="price-radio-dot"></div></div>
           <span class="price-option-label">Single Class</span>
         </div>
-        <span class="price-option-amount">$30</span>
+        <span class="price-option-amount">A$30.00</span>
       </div>
-      <div class="price-option" data-price="100" onclick="selectPrice(this)">
+      <div class="price-option" data-price="100" data-display-price="A$100.00" data-link="https://buy.stripe.com/6oUbJ16033xgeRYfRB4F20c" onclick="selectPrice(this)">
         <div class="price-option-left">
           <div class="price-radio"><div class="price-radio-dot"></div></div>
           <span class="price-option-label">4 Classes</span>
         </div>
-        <span class="price-option-amount">$100</span>
+        <span class="price-option-amount">A$100.00</span>
       </div>
-      <div class="price-option" data-price="125" onclick="selectPrice(this)">
+      <div class="price-option" data-price="125" data-display-price="A$125.00" data-link="https://buy.stripe.com/5kQ8wPbkn4Bk25cbBl4F20d" onclick="selectPrice(this)">
         <div class="price-option-left">
           <div class="price-radio"><div class="price-radio-dot"></div></div>
           <span class="price-option-label">5 Classes</span>
         </div>
-        <span class="price-option-amount">$125</span>
+        <span class="price-option-amount">A$125.00</span>
       </div>
-      <div class="price-option" data-price="230" onclick="selectPrice(this)">
+      <div class="price-option" data-price="230" data-display-price="A$230.00" data-link="https://buy.stripe.com/eVqdR97473xg25ccFp4F20e" onclick="selectPrice(this)">
         <span class="price-option-save">Save 23%</span>
         <div class="price-option-left">
           <div class="price-radio"><div class="price-radio-dot"></div></div>
           <span class="price-option-label">10 Classes</span>
         </div>
-        <span class="price-option-amount">$230</span>
+        <span class="price-option-amount">A$230.00</span>
       </div>
-      <div class="price-option" data-price="400" onclick="selectPrice(this)">
+      <div class="price-option" data-price="450" data-display-price="A$450.00" data-link="https://buy.stripe.com/9B6fZhagj0l4fW28p94F20f" onclick="selectPrice(this)">
         <span class="price-option-save">Save 33%</span>
         <div class="price-option-left">
           <div class="price-radio"><div class="price-radio-dot"></div></div>
           <span class="price-option-label">20 Classes</span>
         </div>
-        <span class="price-option-amount">$400</span>
+        <span class="price-option-amount">A$450.00</span>
       </div>
     </div>
 
-    <button class="btn-book-now" id="bookBtn" onclick="alert('Stripe link coming soon')">Book Now — $30</button>
+    <button class="btn-book-now" id="bookBtn" onclick="openSelectedPrice()">Book Now — A$30.00</button>
     <button class="btn-book-series" onclick="location.href='past-series.html'">View Past Sessions</button>
   </div>
 
@@ -434,15 +434,26 @@
 </script>
 <script src="/chatbot.js" defer></script>
 <script>
+function openSelectedPrice() {
+  var btn = document.getElementById('bookBtn');
+  var link = btn && btn.getAttribute('data-link');
+  if (link) window.open(link, '_blank');
+}
+
 function selectPrice(el) {
   document.querySelectorAll('.price-option').forEach(function(opt) {
     opt.classList.remove('selected');
   });
   el.classList.add('selected');
-  var price = el.getAttribute('data-price');
+  var price = el.getAttribute('data-display-price') || ('A$' + el.getAttribute('data-price') + '.00');
+  var link = el.getAttribute('data-link');
   var btn = document.getElementById('bookBtn');
-  if (btn) btn.textContent = 'Book Now — $' + price;
+  if (btn) {
+    btn.textContent = 'Book Now — ' + price;
+    btn.setAttribute('data-link', link || '');
+  }
 }
+selectPrice(document.querySelector('.price-option.selected'));
 </script>
 
 <!-- BBK PRODUCTIONS CREDIT -->

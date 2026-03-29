@@ -71,69 +71,13 @@ body {
   background: var(--void);
   color: var(--text-primary);
   overflow-x: hidden;
-  cursor: none;
 }
-a, button { cursor: none; }
 
 /* Global title font = Outfit (clean geometric, Verdana-spirit) */
 h1, h2, h3, h4,
 .section-title, .tile-title, .connect-title,
 .artist-name, .academy-title, .hero-title,
 .nav-logo, .footer-logo { font-family: 'Outfit', sans-serif !important; }
-
-/* ═══════════════════════════════════════════════
-   CUSTOM CURSOR — bright visible crosshair
-═══════════════════════════════════════════════ */
-#cursor-dot {
-  width: 12px; height: 12px;
-  background: var(--gold);
-  border-radius: 50%;
-  position: fixed;
-  top: 0; left: 0;
-  pointer-events: none;
-  z-index: 99999;
-  transform: translate(-50%,-50%);
-  box-shadow: 0 0 0 2px rgba(245,197,24,0.3), 0 0 16px rgba(245,197,24,0.8);
-  transition: width 0.15s, height 0.15s, background 0.15s, box-shadow 0.15s;
-  will-change: transform;
-}
-#cursor-ring {
-  width: 44px; height: 44px;
-  border: 2px solid rgba(245,197,24,0.7);
-  border-radius: 50%;
-  position: fixed;
-  top: 0; left: 0;
-  pointer-events: none;
-  z-index: 99998;
-  transform: translate(-50%,-50%);
-  transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), width 0.2s, height 0.2s, border-color 0.15s;
-  will-change: transform;
-}
-/* Crosshair lines */
-#cursor-ring::before, #cursor-ring::after {
-  content: '';
-  position: absolute; top: 50%; left: 50%;
-  background: rgba(245,197,24,0.5);
-}
-#cursor-ring::before {
-  width: 1px; height: 10px;
-  transform: translate(-50%, -50%);
-}
-#cursor-ring::after {
-  width: 10px; height: 1px;
-  transform: translate(-50%, -50%);
-}
-body:has(a:hover) #cursor-dot,
-body:has(button:hover) #cursor-dot {
-  width: 18px; height: 18px;
-  background: var(--purple-400);
-  box-shadow: 0 0 0 2px rgba(167,139,250,0.3), 0 0 20px rgba(167,139,250,0.9);
-}
-body:has(a:hover) #cursor-ring,
-body:has(button:hover) #cursor-ring {
-  width: 56px; height: 56px;
-  border-color: rgba(167,139,250,0.9);
-}
 
 /* ═══════════════════════════════════════════════
    NOISE TEXTURE OVERLAY
@@ -498,6 +442,11 @@ nav.scrolled {
 ═══════════════════════════════════════════════ */
 section { padding: 100px 40px; }
 
+#series, #academy, #artist, #vibes, #connect {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 900px;
+}
+
 .section-chip {
   display: inline-flex; align-items: center; gap: 8px;
   font-family: 'Outfit', sans-serif; font-weight: 600;
@@ -644,6 +593,24 @@ section { padding: 100px 40px; }
 .tile-clash .tile-overlay,
 .tile-coaching .tile-overlay {
   background: linear-gradient(135deg, rgba(8,6,20,0.82) 0%, rgba(8,6,20,0.7) 100%);
+}
+
+/* Poster tiles need full-bleed artwork instead of the default top strip */
+.tile-poster img.tile-bg {
+  height: 100%;
+  object-position: center center;
+  opacity: 0.92;
+}
+.tile-poster .tile-overlay {
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(8,6,20,0.08) 0%,
+      rgba(8,6,20,0.18) 32%,
+      rgba(8,6,20,0.72) 58%,
+      rgba(17,14,31,0.95) 78%,
+      rgba(17,14,31,1) 100%
+    );
 }
 
 .tile-inner {
@@ -1165,8 +1132,6 @@ footer::before {
    MOBILE
 ═══════════════════════════════════════════════ */
 @media (max-width: 768px) {
-  body { cursor: auto; }
-  #cursor-dot, #cursor-ring { display: none; }
   section { padding: 72px 20px; }
   nav { padding: 0 20px; }
   .nav-center { display: none; }
@@ -1188,10 +1153,6 @@ footer::before {
 </style>
 </head>
 <body>
-
-<!-- Custom cursor -->
-<div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
 
 <!-- Particle canvas -->
 <canvas id="particle-canvas"></canvas>
@@ -1281,7 +1242,7 @@ footer::before {
 
     <!-- March Back in Time -->
     <div class="tile reveal reveal-delay-1">
-      <img class="tile-bg" src="images/a84b4d3eec82.png" alt="March Back in Time">
+      <img class="tile-bg" src="images/a84b4d3eec82.png" alt="March Back in Time" loading="lazy" decoding="async">
       <div class="tile-overlay"></div>
       <span class="tile-badge-ending"><span class="ending-dot"></span>Ends Mar 31</span>
       <div class="tile-inner">
@@ -1298,8 +1259,8 @@ footer::before {
     </div>
 
     <!-- Praise Flow -->
-    <div class="tile reveal reveal-delay-2">
-      <img class="tile-bg" src="images/praise-flow.png" alt="Praise Flow">
+    <div class="tile tile-poster reveal reveal-delay-2">
+      <img class="tile-bg" src="images/praise-flow-2026.jpeg" alt="Praise Flow" loading="lazy" decoding="async">
       <div class="tile-overlay"></div>
       <div class="tile-inner">
         <div>
@@ -1314,8 +1275,8 @@ footer::before {
     </div>
 
     <!-- Motherland -->
-    <div class="tile reveal reveal-delay-3">
-      <img class="tile-bg" src="images/motherland.png" alt="Motherland">
+    <div class="tile tile-poster reveal reveal-delay-3">
+      <img class="tile-bg" src="images/motherland-2026.jpeg" alt="Motherland" loading="lazy" decoding="async">
       <div class="tile-overlay"></div>
       <div class="tile-inner">
         <div>
@@ -1330,8 +1291,8 @@ footer::before {
     </div>
 
     <!-- Dancehall Royalty -->
-    <div class="tile reveal reveal-delay-4">
-      <img class="tile-bg" src="images/dancehall-royalty.png" alt="Dancehall Royalty">
+    <div class="tile tile-poster reveal reveal-delay-4">
+      <img class="tile-bg" src="images/dancehall-royalty-2026.jpeg" alt="Dancehall Royalty" loading="lazy" decoding="async">
       <div class="tile-overlay"></div>
       <div class="tile-inner">
         <div>
@@ -1347,7 +1308,7 @@ footer::before {
 
     <!-- Clash -->
     <div class="tile tile-clash reveal">
-      <img class="tile-bg" src="images/clash-inna-dancehall.png" alt="Clash" style="opacity:0.35;">
+      <img class="tile-bg" src="images/clash-inna-dancehall.png" alt="Clash" style="opacity:0.35;" loading="lazy" decoding="async">
       <div class="tile-overlay"></div>
       <div class="tile-inner" style="flex-direction:row;align-items:center;justify-content:space-between;gap:20px;padding:36px 36px;">
         <div>
@@ -1361,7 +1322,7 @@ footer::before {
 
     <!-- 1:1 Coaching -->
     <div class="tile tile-coaching reveal">
-      <img class="tile-bg" src="images/5015f87ce59f.png" alt="Coaching" style="opacity:0.35;">
+      <img class="tile-bg" src="images/5015f87ce59f.png" alt="Coaching" style="opacity:0.35;" loading="lazy" decoding="async">
       <div class="tile-overlay"></div>
       <div class="tile-inner" style="flex-direction:row;align-items:center;justify-content:space-between;gap:20px;padding:36px 36px;">
         <div>
@@ -1398,7 +1359,6 @@ footer::before {
         <span class="t1">CHUBY DICE</span>
         <span class="t2">DANCEHALL ACADEMY</span>
       </h2>
-      <p class="academy-desc">A new era of dancehall education. Full programs, certifications, and community building — all rooted in authentic Caribbean culture. Launching June 2026.</p>
       <button class="btn-primary" onclick="location.href='academy.html'">
         Learn More
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M8 3L13 8L8 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1415,10 +1375,8 @@ footer::before {
     <div class="section-chip">Meet the Artist</div>
     <h2 class="artist-name">Meet Chuby Dice</h2>
     <p class="artist-bio">
-      Chuby Dice is a Dancehall innovator bringing Jamaican culture to global stages.
-      His journey blends artistry, resilience, and community impact. From the streets
-      of Kingston to dance floors worldwide, Chuby's movement is a living archive of
-      Caribbean culture.
+      Veteran performer, cultural practitioner. Leading representative of Jamaican Dancehall in Australia.
+      From Spanish Town, Jamaica. Widely recognised as a veteran performer and a leading representative of authentic Jamaican
     </p>
     <button class="btn-ghost-purple" onclick="location.href='about.html'">
       Read More
@@ -1436,7 +1394,7 @@ footer::before {
     <h2 class="section-title">DANCEHALL <span class="grad">VIBES</span></h2>
     <a href="https://music.youtube.com/playlist?list=PLrAdqr-L9aFuh7nhS0tQS6kzWIUGm4aBL&si=9x9uK9TnQ-uZxcIW" target="_blank" style="text-decoration:none;">
       <div class="playlist-card">
-        <img src="images/2104822c8d2d.png" alt="Dancehall Vibes Playlist">
+        <img src="images/2104822c8d2d.png" alt="Dancehall Vibes Playlist" loading="lazy" decoding="async">
         <span class="playlist-label">Dancehall Vibes · YouTube Music</span>
       </div>
     </a>
@@ -1462,7 +1420,7 @@ footer::before {
     <div style="display:flex;justify-content:center;">
       <div class="insta-card" onclick="window.open('https://www.instagram.com/chuby_dice','_blank')" style="cursor:none;">
         <div class="insta-avatar">
-          <img src="images/fd332cb6b99b.jpg" alt="Chuby Dice">
+          <img src="images/fd332cb6b99b.jpg" alt="Chuby Dice" loading="lazy" decoding="async">
         </div>
         <div class="insta-handle">
           @chuby_dice
@@ -1489,7 +1447,7 @@ footer::before {
     <div>
       <div class="footer-logo">CHUBY <span class="accent">DICE</span></div>
       <p class="footer-tagline">"Dancehall belongs to everybody — but it must stay connected to where it comes from."</p>
-      <p class="footer-addr"><strong>The Space</strong> · 318 Chapel St, Prahran VIC 3181</p>
+      <p class="footer-addr"><strong>HD Entertainment</strong> · Enter Via, Mount St, Prahran VIC 3181, Australia</p>
       <div class="footer-socials">
         <a href="https://www.instagram.com/chuby_dice" target="_blank" class="social-icon">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
@@ -1527,22 +1485,6 @@ footer::before {
 <script src="/chatbot.js"></script>
 
 <script>
-/* ── CURSOR ── */
-(function() {
-  if (window.innerWidth <= 768) return;
-  const dot = document.getElementById('cursor-dot');
-  const ring = document.getElementById('cursor-ring');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-  function animCursor() {
-    dot.style.left = mx + 'px'; dot.style.top = my + 'px';
-    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-    requestAnimationFrame(animCursor);
-  }
-  animCursor();
-})();
-
 /* ── PARTICLES ── */
 (function() {
   const canvas = document.getElementById('particle-canvas');
