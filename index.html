@@ -528,6 +528,27 @@ section { padding: 100px 40px; }
   margin-top: 20px;
 }
 
+.series-swipe-indicator {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 18px auto 0;
+}
+.series-swipe-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: width 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.series-swipe-dot.active {
+  width: 22px;
+  background: linear-gradient(90deg, var(--purple-400), var(--gold));
+  border-color: rgba(245,197,24,0.24);
+}
+
 /* ─── TILE ─── */
 .tile {
   background: var(--card);
@@ -1164,6 +1185,7 @@ footer::before {
     scroll-snap-align: start;
     min-height: 300px;
   }
+  .series-swipe-indicator { display: flex; }
   .series-grid-secondary {
     grid-template-columns: 1fr;
     margin-top: 16px;
@@ -1335,6 +1357,13 @@ footer::before {
       </div>
     </div>
 
+  </div>
+
+  <div class="series-swipe-indicator" id="seriesSwipeIndicator" aria-hidden="true">
+    <span class="series-swipe-dot active"></span>
+    <span class="series-swipe-dot"></span>
+    <span class="series-swipe-dot"></span>
+    <span class="series-swipe-dot"></span>
   </div>
 
   <div class="series-grid-secondary">
@@ -1600,15 +1629,34 @@ document.addEventListener('click', function(e) {
   els.forEach(el => obs.observe(el));
 })();
 
+/* ── MOBILE SWIPE DOTS ── */
+(function() {
+  const grid = document.querySelector('.series-grid');
+  const indicator = document.getElementById('seriesSwipeIndicator');
+  if (!grid || !indicator) return;
+  const dots = Array.from(indicator.querySelectorAll('.series-swipe-dot'));
+
+  function updateDots() {
+    if (window.innerWidth > 768) return;
+    const cards = Array.from(grid.querySelectorAll('.tile'));
+    if (!cards.length) return;
+    const firstCardWidth = cards[0].getBoundingClientRect().width;
+    const styles = window.getComputedStyle(grid);
+    const gap = parseFloat(styles.columnGap || styles.gap || '16') || 16;
+    const step = firstCardWidth + gap;
+    const index = Math.max(0, Math.min(dots.length - 1, Math.round(grid.scrollLeft / step)));
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+  }
+
+  grid.addEventListener('scroll', updateDots, { passive: true });
+  window.addEventListener('resize', updateDots);
+  updateDots();
+})();
+
 /* ── VIDEO ── */
 (function() {
   const v = document.getElementById('heroVideo');
   if (!v) return;
-  if (window.innerWidth <= 768) {
-    v.removeAttribute('autoplay');
-    v.pause();
-    return;
-  }
   v.play().catch(() => {});
   v.addEventListener('stalled', () => { setTimeout(() => { v.load(); v.play().catch(() => {}); }, 2000); });
 })();
