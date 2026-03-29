@@ -203,7 +203,7 @@
     text-align: center;
     padding: 140px 24px 80px;
     position: relative;
-    background: var(--black);
+    background: var(--black) url('images/hero-poster.jpg') center/cover no-repeat;
     overflow: hidden;
   }
 
@@ -1565,8 +1565,8 @@
 
 <!-- HERO -->
 <section id="hero">
-  <video id="heroVideo" muted loop playsinline poster="images/450034373c45.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center center;z-index:0;opacity:0.75;" preload="none">
-    <source src="videos/1.mp4" type="video/mp4">
+  <video id="heroVideo" autoplay muted loop playsinline poster="images/hero-poster.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:0;opacity:0.75;" preload="auto">
+    <source src="videos/hero-bg.mp4" type="video/mp4">
   </video>
   <video class="heroVideoAlt" muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center center;z-index:0;opacity:0;" preload="none"><source src="videos/2.mp4" type="video/mp4"></video>
   <video class="heroVideoAlt" muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center center;z-index:0;opacity:0;" preload="none"><source src="videos/3.mp4" type="video/mp4"></video>
@@ -2032,138 +2032,43 @@
 <!-- Hero video crossfade -->
 <script>
 (function () {
-  var videos = Array.prototype.slice.call(document.querySelectorAll('#hero video'));
-  if (!videos.length) return;
+  var v = document.getElementById('heroVideo');
+  if (!v) return;
 
-  var isMobile = window.innerWidth < 768 || ('ontouchstart' in window);
+  var recoveryTimer = null;
+  var lastTime = -1;
+  var watchdogTimer = null;
 
-  // Respect data-saver / slow connections — show poster only
-  var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-  if (conn && (conn.saveData || conn.effectiveType === '2g' || conn.effectiveType === 'slow-2g')) {
-    videos.forEach(function (v) { v.style.display = 'none'; });
-    return;
-  }
-
-  function tryPlay(v) {
-    if (v.paused) {
-      v.play().catch(function () {});
-    }
-  }
-
-  function setupVideoWithRecovery(v) {
-    var stallTimer = null;
-    function onStall() {
-      clearTimeout(stallTimer);
-      stallTimer = setTimeout(function () {
+  function scheduleRecovery(delay) {
+    clearTimeout(recoveryTimer);
+    recoveryTimer = setTimeout(function () {
+      if (v.readyState >= 1 && isFinite(v.duration) && v.duration > 0) {
+        v.currentTime = v.currentTime + 0.001;
+        v.play().catch(function () {});
+      } else {
         v.load();
-        tryPlay(v);
-      }, 2000);
-    }
-    function onPlaying() {
-      clearTimeout(stallTimer);
-    }
-    v.addEventListener('canplay', function () { tryPlay(v); }, { once: true });
-    v.addEventListener('canplaythrough', function () { clearTimeout(stallTimer); }, { once: true });
-    v.addEventListener('stalled', onStall);
-    v.addEventListener('waiting', onStall);
-    v.addEventListener('playing', onPlaying);
-    v.addEventListener('error', function () {
-      setTimeout(function () { v.load(); tryPlay(v); }, 2000);
-    });
+        v.play().catch(function () {});
+      }
+    }, delay);
   }
 
-  // Aggressive preload strategy: load all videos immediately
-  var loadedVideos = new Set();
+  v.addEventListener('waiting', function () { scheduleRecovery(1500); });
+  v.addEventListener('stalled', function () { scheduleRecovery(2000); });
+  v.addEventListener('playing', function () { clearTimeout(recoveryTimer); });
 
-  function loadVideo(idx) {
-    if (loadedVideos.has(idx) || idx >= videos.length) return;
-    loadedVideos.add(idx);
-    videos[idx].preload = 'auto';
-    setupVideoWithRecovery(videos[idx]);
-    videos[idx].load();
+  function startWatchdog() {
+    clearInterval(watchdogTimer);
+    watchdogTimer = setInterval(function () {
+      if (!v.paused && !v.ended && v.readyState > 2) {
+        if (v.currentTime === lastTime) { scheduleRecovery(0); }
+        lastTime = v.currentTime;
+      }
+    }, 4000);
   }
 
-  // Mobile: start all videos loading immediately for smooth rotation
-  if (isMobile) {
-    // Load all 5 videos in background immediately (non-blocking)
-    for (var i = 0; i < videos.length; i++) {
-      setTimeout(function (idx) {
-        loadVideo(idx);
-      }.bind(null, i), i * 200); // Stagger by 200ms to avoid HTTP flooding
-    }
-  } else {
-    // Desktop: intelligent sequential loading
-    loadVideo(0);
-    setTimeout(function () { loadVideo(1); }, 500);
-    setTimeout(function () { loadVideo(2); }, 1000);
-  }
-
-  // Start playback immediately
-  tryPlay(videos[0]);
-
-  if (videos.length < 2) return;
-
-  // Rotation every 5 seconds with pre-buffering
-  var currentVidIdx = 0;
-  var rotationInterval = setInterval(function () {
-    var next = (currentVidIdx + 1) % videos.length;
-    var nextNext = (next + 1) % videos.length;
-    var nextNextNext = (nextNext + 1) % videos.length;
-
-    // Ensure next videos are preloaded before transition
-    loadVideo(nextNext);
-    loadVideo(nextNextNext);
-
-    videos[currentVidIdx].style.opacity = '0';
-    videos[currentVidIdx].pause();
-    
-    currentVidIdx = next;
-    videos[currentVidIdx].style.opacity = '0.75';
-    tryPlay(videos[currentVidIdx]);
-  }, 5000);
-})();
-</script>
-
-<!-- Flyer Carousel -->
-<script>
-// Floating Jamaican Flag Particles
-(function() {
-  var container = document.getElementById('flagsContainer');
-  if (!container) return;
-
-  var flagSVG = '<svg width="36" height="24" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-    '<rect width="18" height="12" fill="#009B3A"/>' +
-    '<polygon points="0,0 9,6 0,12" fill="#000"/>' +
-    '<polygon points="18,0 9,6 18,12" fill="#000"/>' +
-    '<polygon points="0,0 9,6 18,0" fill="#FED100"/>' +
-    '<polygon points="0,12 9,6 18,12" fill="#FED100"/>' +
-    '<line x1="0" y1="0" x2="18" y2="12" stroke="#FED100" stroke-width="1.5"/>' +
-    '<line x1="18" y1="0" x2="0" y2="12" stroke="#FED100" stroke-width="1.5"/>' +
-    '</svg>';
-
-  function createFlag() {
-    var flag = document.createElement('div');
-    flag.className = 'flag-particle';
-    flag.innerHTML = flagSVG;
-    var size = 0.8 + Math.random() * 1.2;
-    flag.style.left = (Math.random() * 100) + '%';
-    flag.style.transform = 'scale(' + size + ')';
-    flag.style.animationDuration = (10 + Math.random() * 10) + 's';
-    flag.style.animationDelay = (Math.random() * 4) + 's';
-    container.appendChild(flag);
-
-    setTimeout(function() {
-      if (flag.parentNode) flag.parentNode.removeChild(flag);
-    }, 24000);
-  }
-
-  // Create initial batch
-  for (var i = 0; i < 12; i++) {
-    setTimeout(createFlag, i * 600);
-  }
-
-  // Keep creating flags
-  setInterval(createFlag, 1800);
+  v.addEventListener('playing', startWatchdog);
+  v.addEventListener('pause', function () { clearInterval(watchdogTimer); });
+  v.addEventListener('ended', function () { clearInterval(watchdogTimer); });
 })();
 </script>
 
