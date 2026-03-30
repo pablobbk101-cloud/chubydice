@@ -626,10 +626,9 @@ section { padding: 100px 40px; }
 /* Poster tiles need full-bleed artwork instead of the default top strip */
 .tile-poster img.tile-bg {
   height: 100%;
-  object-fit: contain;
-  object-position: center center;
-  transform: scale(0.9);
-  opacity: 0.96;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0.92;
 }
 .tile-poster .tile-overlay {
   background:
@@ -1326,7 +1325,7 @@ footer::before {
 
     <!-- Motherland -->
     <div class="tile tile-poster reveal reveal-delay-3">
-      <img class="tile-bg" src="images/motherland-2026.jpeg" alt="Motherland" loading="lazy" decoding="async">
+      <img class="tile-bg" src="images/photo-1.jpeg" alt="Motherland" loading="lazy" decoding="async">
       <div class="tile-overlay"></div>
       <div class="tile-inner">
         <div>
